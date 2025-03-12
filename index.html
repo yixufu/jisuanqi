@@ -42,10 +42,10 @@
                 <div class="editor-block">
                     <div class="block-title">标题设置</div>
                     <div class="input-group">
-                        <input type="text" id="titleInput" placeholder="请输入标题" class="title-input">
+                        <textarea id="titleInput" placeholder="请输入标题" class="title-input" rows="2"></textarea>
                         <div class="font-size-control">
                             <label for="titleFontSizeSlider">字体大小: <span id="titleFontSizeValue">48</span>px</label>
-                            <input type="range" id="titleFontSizeSlider" min="24" max="72" value="48" step="1">
+                            <input type="range" id="titleFontSizeSlider" min="24" max="96" value="48" step="1">
                         </div>
                     </div>
                 </div>
@@ -58,6 +58,17 @@
                         <div class="font-size-control">
                             <label for="fontSizeSlider">字体大小: <span id="fontSizeValue">20</span>px</label>
                             <input type="range" id="fontSizeSlider" min="16" max="48" value="20" step="1">
+                        </div>
+                        <!-- 添加配置选项 -->
+                        <div class="config-options">
+                            <div class="config-item">
+                                <input type="checkbox" id="autoNumbering" checked>
+                                <label for="autoNumbering">自动添加序号</label>
+                            </div>
+                            <div class="config-item">
+                                <input type="checkbox" id="boldFirstLine" checked>
+                                <label for="boldFirstLine">段落首行加粗</label>
+                            </div>
                         </div>
                     </div>
                 </div>

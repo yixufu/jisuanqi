@@ -22,6 +22,8 @@ class TextEditor {
         this.paragraphSpacingValue = document.getElementById('paragraphSpacingValue');
         this.watermarkBottomSlider = document.getElementById('watermarkBottomSlider');
         this.watermarkBottomValue = document.getElementById('watermarkBottomValue');
+        this.autoNumbering = document.getElementById('autoNumbering');
+        this.boldFirstLine = document.getElementById('boldFirstLine');
 
         this.init();
     }
@@ -82,11 +84,15 @@ class TextEditor {
             this.watermarkBottomValue.textContent = e.target.value;
             this.updatePreview();
         });
+
+        // 添加配置选项的事件监听
+        this.autoNumbering.addEventListener('change', () => this.updatePreview());
+        this.boldFirstLine.addEventListener('change', () => this.updatePreview());
     }
 
     updatePreview() {
         const content = this.contentInput.value;
-        const title = this.titleInput.value;
+        const title = this.titleInput.value.replace(/\n/g, '<br>');
         const paragraphs = content.split(/\n\s*\n/).filter(para => para.trim());
         
         // 更新预览区域样式
@@ -98,7 +104,7 @@ class TextEditor {
         if (title) {
             const titleSection = document.createElement('div');
             titleSection.className = 'title-section';
-            titleSection.textContent = title;
+            titleSection.innerHTML = title;
             titleSection.style.marginBottom = `${this.titleSpacingSlider.value}px`;
             this.previewArea.appendChild(titleSection);
         }
@@ -115,10 +121,14 @@ class TextEditor {
             itemDiv.className = 'content-item';
             itemDiv.style.marginBottom = `${this.paragraphSpacingSlider.value}px`;
             
-            const numberDiv = document.createElement('div');
-            numberDiv.className = 'item-number';
-            const number = this.generateOffsetNumber(index);
-            numberDiv.textContent = String(number).padStart(2, '0');
+            // 根据配置决定是否显示序号
+            if (this.autoNumbering.checked) {
+                const numberDiv = document.createElement('div');
+                numberDiv.className = 'item-number';
+                const number = this.generateOffsetNumber(index);
+                numberDiv.textContent = String(number).padStart(2, '0');
+                itemDiv.appendChild(numberDiv);
+            }
             
             const textDiv = document.createElement('div');
             textDiv.className = 'item-text';
@@ -128,12 +138,17 @@ class TextEditor {
             const firstLine = lines[0];
             const restContent = lines.slice(1).join('\n');
             
-            // 创建加粗的第一行
-            const firstLineDiv = document.createElement('div');
-            firstLineDiv.className = 'item-text-first-line';
-            firstLineDiv.textContent = firstLine;
-            
-            textDiv.appendChild(firstLineDiv);
+            // 根据配置决定是否加粗首行
+            if (this.boldFirstLine.checked) {
+                const firstLineDiv = document.createElement('div');
+                firstLineDiv.className = 'item-text-first-line';
+                firstLineDiv.textContent = firstLine;
+                textDiv.appendChild(firstLineDiv);
+            } else {
+                const firstLineDiv = document.createElement('div');
+                firstLineDiv.textContent = firstLine;
+                textDiv.appendChild(firstLineDiv);
+            }
             
             // 添加剩余内容
             if (restContent) {
@@ -142,7 +157,10 @@ class TextEditor {
                 textDiv.appendChild(restDiv);
             }
             
-            itemDiv.appendChild(numberDiv);
+            if (!this.autoNumbering.checked) {
+                textDiv.style.marginLeft = '0';
+            }
+            
             itemDiv.appendChild(textDiv);
             contentSection.appendChild(itemDiv);
         });

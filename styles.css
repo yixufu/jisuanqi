@@ -123,10 +123,10 @@ button:hover {
     width: 1000px;
     height: 1000px;
     border-radius: 50%;
-    background: linear-gradient(to bottom, #ffea00 0%, #ffdd00 50%, #ffcc00 100%); /* 上半部分更亮 */
-    top: 50%; /* 垂直居中 */
+    background: linear-gradient(to bottom, #ffea00 0%, #ffdd00 50%, #ffcc00 100%);
+    top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* 水平和垂直居中 */
+    transform: translate(-50%, -50%);
     z-index: 0;
     opacity: 0.4;
 }
@@ -137,11 +137,16 @@ button:hover {
     z-index: 1;
 }
 
+/* 标题样式优化 */
 .title-section {
     text-align: center;
     margin-bottom: 40px;
     font-size: var(--title-font-size);
     font-weight: bold;
+    padding: 0 40px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    line-height: 1.4;
 }
 
 .content-section {
@@ -292,10 +297,11 @@ button:hover {
 }
 
 .font-size-control {
-    background: #f8f9fa;
-    padding: 12px;
+    background: #ffffff;
+    padding: 8px;
     border-radius: 4px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    border: 1px solid #eee;
 }
 
 .font-size-control label {
@@ -320,12 +326,18 @@ button:hover {
     letter-spacing: 2px;
 }
 
+/* 标题输入框样式优化 */
 .title-input {
     width: 100%;
     padding: 8px;
     border: 1px solid #dee2e6;
     border-radius: 4px;
     margin-bottom: 10px;
+    resize: vertical;
+    min-height: 60px;
+    font-size: 16px;
+    line-height: 1.4;
+    font-family: inherit;
 }
 
 .preview-title {
@@ -431,37 +443,17 @@ button:not(.save-button) {
     text-align: center;
 }
 
-/* 输入框样式优化 */
-.title-input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #dee2e6;
-    border-radius: 4px;
-    margin-bottom: 15px;
-}
-
-textarea {
-    width: 100%;
-    height: 200px;
-    padding: 10px;
-    border: 1px solid #dee2e6;
-    border-radius: 4px;
-    resize: vertical;
-    margin-bottom: 15px;
-}
-
 /* 字体大小控制器样式优化 */
 .font-size-control {
-    background: #f8f9fa;
-    padding: 12px;
+    background: #ffffff;
+    padding: 8px;
     border-radius: 4px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    border: 1px solid #eee;
 }
 
 .font-size-control label {
-    display: block;
-    margin-bottom: 8px;
-    color: #495057;
+    margin-bottom: 6px;
 }
 
 /* 字体选择控件样式 */
@@ -636,7 +628,7 @@ textarea {
     background: #ffffff;
     padding: 8px;
     border-radius: 4px;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     border: 1px solid #eee;
 }
 
@@ -699,4 +691,46 @@ button {
         height: auto;
         position: static;
     }
+}
+
+/* 修改标题字号滑块范围 */
+#titleFontSizeSlider {
+    min: 24;
+    max: 96;
+}
+
+/* 配置选项样式 */
+.config-options {
+    margin-top: 15px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    border: 1px solid #eee;
+}
+
+.config-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.config-item:last-child {
+    margin-bottom: 0;
+}
+
+.config-item input[type="checkbox"] {
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.config-item label {
+    color: #495057;
+    cursor: pointer;
+    user-select: none;
+}
+
+.config-item:hover label {
+    color: #000;
 }
