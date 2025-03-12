@@ -28,10 +28,14 @@ body {
 .editor-section {
     width: 400px;
     flex-shrink: 0;
-    background: #f8f9fa;
+    background: #ffffff;
     border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    height: calc(1706px * 0.7); /* 与预览区域的高度和缩放比例一致 */
+    overflow-y: auto; /* 添加垂直滚动条 */
+    position: sticky; /* 使编辑器固定在视口中 */
+    top: 20px; /* 与页面顶部保持一定距离 */
 }
 
 .preview-section {
@@ -95,6 +99,10 @@ button:hover {
     justify-content: center;
     align-items: flex-start;
     overflow: visible;
+    background: #f8f9fa;
+    border-radius: 4px;
+    padding: 20px;
+    min-width: 1280px;
 }
 
 .preview-area {
@@ -206,19 +214,19 @@ button:hover {
 
 @media screen and (min-width: 1601px) {
     .preview-area {
-        transform: scale(0.5);
+        transform: scale(0.7);
     }
 }
 
 @media screen and (max-width: 1600px) {
     .preview-area {
-        transform: scale(0.45);
+        transform: scale(0.6);
     }
 }
 
 @media screen and (max-width: 1400px) {
     .preview-area {
-        transform: scale(0.4);
+        transform: scale(0.5);
     }
 }
 
@@ -232,14 +240,17 @@ button:hover {
     .preview-section {
         margin-right: 0;
         margin-bottom: 20px;
+        overflow-x: auto;
     }
 
     .editor-section {
         width: auto;
+        height: auto;
+        position: static;
     }
 
     .preview-area {
-        transform: scale(0.3);
+        transform: scale(0.4);
     }
 }
 
@@ -504,11 +515,31 @@ textarea {
     padding: 20px;
 }
 
-/* 页面标题样式 */
+/* 页面标题样式优化 */
 .page-header {
     max-width: 1800px;
-    margin: 0 auto 30px;
-    padding: 20px 0;
+    margin: 0 auto 20px;
+    padding: 15px 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.page-logo {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #367cf5 0%, #1566f3 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(54, 124, 245, 0.2);
+}
+
+.page-logo svg {
+    stroke: white;
 }
 
 .page-title {
@@ -530,18 +561,19 @@ textarea {
 /* 区域标题样式 */
 .section-header {
     background: #fff;
-    padding: 15px 20px 15px 0;
-    margin: -20px -20px 20px -20px;
+    padding: 12px 15px;
+    margin: -15px -15px 15px -15px;
     border-bottom: 1px solid #e8e8e8;
 }
 
 .section-title {
     font-size: 18px;
     color: #1a1a1a;
-    margin: 0 0 0 20px;
-    font-weight: 500;
+    margin: 0;
+    font-weight: 600;
     text-align: left;
     border-bottom: none;
+    padding-left: 0;
 }
 
 /* 预览区域样式 */
@@ -555,102 +587,111 @@ textarea {
     border-top: none;
 }
 
-/* 编辑器区域样式 */
-.editor-section {
-    width: 400px;
-    flex-shrink: 0;
-    background: #ffffff;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-}
-
 /* 编辑器块样式优化 */
 .editor-block {
     background: #f8f9fa;
     border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 20px;
+    padding: 12px;
+    margin-bottom: 8px;
 }
 
 .block-title {
-    font-size: 14px;
-    font-weight: 500;
-    color: #666;
-    margin-bottom: 15px;
-    border-bottom: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #eee;
+}
+
+.input-group {
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+    margin-bottom: 8px;
 }
 
 /* 控件样式优化 */
 .font-size-control {
     background: #ffffff;
-    padding: 12px;
+    padding: 8px;
     border-radius: 4px;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
     border: 1px solid #eee;
+}
+
+.font-size-control label {
+    margin-bottom: 6px;
 }
 
 /* 输入框样式优化 */
 .title-input,
 .watermark-input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #dee2e6;
-    border-radius: 4px;
-    margin-bottom: 15px;
-    background: #ffffff;
+    padding: 8px;
+    margin-bottom: 10px;
 }
 
 textarea {
-    width: 100%;
-    height: 200px;
-    padding: 10px;
-    border: 1px solid #dee2e6;
-    border-radius: 4px;
-    resize: vertical;
-    margin-bottom: 15px;
-    background: #ffffff;
+    height: 180px;
+    margin-bottom: 10px;
 }
 
 /* 按钮样式优化 */
-.layout-button {
-    background-color: #ffd75e;
-    color: #333;
+button {
+    margin-bottom: 8px;
+}
+
+/* 编辑器区域间距优化 */
+.editor-section {
+    gap: 10px;
+    padding: 15px;
+}
+
+.section-header {
+    padding: 12px 15px;
+    margin: -15px -15px 15px -15px;
+}
+
+/* 预览区域标题样式优化 */
+.preview-section .section-header {
+    margin: -20px -20px 15px -20px;
     padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    border-bottom: 2px solid #ddd;
+    text-align: left;
     width: 100%;
-    transition: background-color 0.2s;
-}
-
-.save-button {
-    background-color: #28a745;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-    font-weight: 500;
-    transition: background-color 0.2s;
-}
-
-/* 预览容器样式优化 */
-.preview-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    overflow: visible;
-    background: #f8f9fa;
-    border-radius: 4px;
-    padding: 20px;
-}
-
-/* 确保预览区域和编辑器区域的标题样式一致 */
-.preview-section .section-header,
-.editor-section .section-header {
-    width: 100%; /* 确保横线拉满整个容器宽度 */
     box-sizing: border-box;
+    display: block;
+}
+
+.preview-section .section-title {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+/* 编辑器区域标题样式 */
+.editor-section .section-header {
+    border-bottom: 1px solid #e8e8e8;
+}
+
+@media screen and (max-width: 1600px) {
+    .editor-section {
+        height: calc(1706px * 0.6);
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .editor-section {
+        height: calc(1706px * 0.5);
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .editor-section {
+        height: auto;
+        position: static;
+    }
 }
