@@ -1,6 +1,26 @@
 :root {
     --primary-yellow: #ffdd00;
     --text-color: #333;
+    --yellow-gradient-start: #ffdd00;
+    --yellow-gradient-end: #ffcc00;
+    --yellow-circle-bright: #ffea00;
+    --yellow-text: #333333;
+    --blue-gradient-start: #4facfe;
+    --blue-gradient-end: #00f2fe;
+    --blue-circle-bright: #6fbaff;
+    --blue-text: #1a365d;
+    --green-gradient-start: #43e97b;
+    --green-gradient-end: #38f9d7;
+    --green-circle-bright: #60f092;
+    --green-text: #1b4332;
+    --purple-gradient-start: #a18cd1;
+    --purple-gradient-end: #b8a6db;
+    --purple-circle-bright: #b09ad8;
+    --purple-text: #2d1b4d;
+    --pink-gradient-start: #ff9a9e;
+    --pink-gradient-end: #fad0c4;
+    --pink-circle-bright: #ffb0b3;
+    --pink-text: #4a1b2d;
 }
 
 body {
@@ -108,7 +128,7 @@ button:hover {
 .preview-area {
     width: 1280px;
     height: 1706px;
-    background: linear-gradient(to bottom, #ffdd00 0%, #ffcc00 100%); /* 垂直线性渐变 */
+    background: linear-gradient(to bottom, var(--yellow-gradient-start), var(--yellow-gradient-end));
     box-sizing: border-box;
     position: relative;
     transform-origin: top center;
@@ -123,7 +143,7 @@ button:hover {
     width: 1000px;
     height: 1000px;
     border-radius: 50%;
-    background: linear-gradient(to bottom, #ffea00 0%, #ffdd00 50%, #ffcc00 100%);
+    background: var(--circle-gradient, linear-gradient(to bottom, var(--yellow-circle-bright), var(--yellow-gradient-start), var(--yellow-gradient-end)));
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -147,6 +167,7 @@ button:hover {
     word-wrap: break-word;
     white-space: pre-wrap;
     line-height: 1.4;
+    color: var(--yellow-text);
 }
 
 .content-section {
@@ -172,7 +193,7 @@ button:hover {
 .item-text, 
 .item-text-first-line {
     font-size: var(--content-font-size);
-    color: var(--text-color);
+    color: var(--yellow-text);
     flex: 1;
 }
 
@@ -192,7 +213,7 @@ button:hover {
     min-width: 1.8em;
     height: 1.8em;
     width: 1.8em;
-    background: #000; /* 黑色圆圈背景 */
+    background: var(--yellow-text);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -200,7 +221,7 @@ button:hover {
     margin-top: 2px;
     flex-shrink: 0;
     position: relative;
-    color: #ffdd00; /* 最终调整的黄色 */
+    color: var(--yellow-gradient-start);
     box-sizing: border-box;
 }
 
@@ -733,4 +754,88 @@ button {
 
 .config-item:hover label {
     color: #000;
+}
+
+/* 色系选择样式 */
+.color-scheme-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.color-scheme-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.color-scheme-item input[type="radio"] {
+    display: none;
+}
+
+.color-scheme-item label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.color-scheme-item label:hover {
+    background-color: #f8f9fa;
+}
+
+.color-scheme-item input[type="radio"]:checked + label {
+    background-color: #f0f0f0;
+}
+
+.color-preview {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px #ddd;
+}
+
+/* 色系预览样式 */
+.yellow-scheme {
+    background: linear-gradient(to bottom, var(--yellow-gradient-start), var(--yellow-gradient-end));
+}
+
+.blue-scheme {
+    background: linear-gradient(to bottom, var(--blue-gradient-start), var(--blue-gradient-end));
+}
+
+.green-scheme {
+    background: linear-gradient(to bottom, var(--green-gradient-start), var(--green-gradient-end));
+}
+
+.purple-scheme {
+    background: linear-gradient(to bottom, var(--purple-gradient-start), var(--purple-gradient-end));
+}
+
+.pink-scheme {
+    background: linear-gradient(to bottom, var(--pink-gradient-start), var(--pink-gradient-end));
+}
+
+/* 修改预览区域样式以使用变量 */
+.preview-area {
+    background: linear-gradient(to bottom, var(--yellow-gradient-start), var(--yellow-gradient-end));
+}
+
+.preview-area::before {
+    background: var(--circle-gradient, linear-gradient(to bottom, var(--yellow-circle-bright), var(--yellow-gradient-start), var(--yellow-gradient-end)));
+}
+
+.item-text, 
+.item-text-first-line,
+.title-section {
+    color: var(--yellow-text);
+}
+
+.item-number {
+    background: var(--yellow-text);
+    color: var(--yellow-gradient-start);
 }

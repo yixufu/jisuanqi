@@ -38,6 +38,50 @@
                     <h2 class="section-title">编辑器</h2>
                 </div>
                 
+                <!-- 色系选择区域 -->
+                <div class="editor-block">
+                    <div class="block-title">色系选择</div>
+                    <div class="input-group">
+                        <div class="color-scheme-options">
+                            <div class="color-scheme-item">
+                                <input type="radio" name="colorScheme" id="scheme1" value="yellow" checked>
+                                <label for="scheme1">
+                                    <span class="color-preview yellow-scheme"></span>
+                                    阳光黄
+                                </label>
+                            </div>
+                            <div class="color-scheme-item">
+                                <input type="radio" name="colorScheme" id="scheme2" value="blue">
+                                <label for="scheme2">
+                                    <span class="color-preview blue-scheme"></span>
+                                    海洋蓝
+                                </label>
+                            </div>
+                            <div class="color-scheme-item">
+                                <input type="radio" name="colorScheme" id="scheme3" value="green">
+                                <label for="scheme3">
+                                    <span class="color-preview green-scheme"></span>
+                                    森林绿
+                                </label>
+                            </div>
+                            <div class="color-scheme-item">
+                                <input type="radio" name="colorScheme" id="scheme4" value="purple">
+                                <label for="scheme4">
+                                    <span class="color-preview purple-scheme"></span>
+                                    梦幻紫
+                                </label>
+                            </div>
+                            <div class="color-scheme-item">
+                                <input type="radio" name="colorScheme" id="scheme5" value="pink">
+                                <label for="scheme5">
+                                    <span class="color-preview pink-scheme"></span>
+                                    温柔粉
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- 标题设置区域 -->
                 <div class="editor-block">
                     <div class="block-title">标题设置</div>
@@ -45,7 +89,7 @@
                         <textarea id="titleInput" placeholder="请输入标题" class="title-input" rows="2"></textarea>
                         <div class="font-size-control">
                             <label for="titleFontSizeSlider">字体大小: <span id="titleFontSizeValue">48</span>px</label>
-                            <input type="range" id="titleFontSizeSlider" min="24" max="96" value="48" step="1">
+                            <input type="range" id="titleFontSizeSlider" min="24" max="150" value="48" step="1">
                         </div>
                     </div>
                 </div>

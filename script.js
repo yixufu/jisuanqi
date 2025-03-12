@@ -24,6 +24,7 @@ class TextEditor {
         this.watermarkBottomValue = document.getElementById('watermarkBottomValue');
         this.autoNumbering = document.getElementById('autoNumbering');
         this.boldFirstLine = document.getElementById('boldFirstLine');
+        this.colorSchemeInputs = document.querySelectorAll('input[name="colorScheme"]');
 
         this.init();
     }
@@ -88,6 +89,72 @@ class TextEditor {
         // 添加配置选项的事件监听
         this.autoNumbering.addEventListener('change', () => this.updatePreview());
         this.boldFirstLine.addEventListener('change', () => this.updatePreview());
+
+        this.initColorScheme();
+    }
+
+    initColorScheme() {
+        this.colorSchemeInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                this.updateColorScheme(input.value);
+            });
+        });
+    }
+
+    updateColorScheme(scheme) {
+        const root = document.documentElement;
+        const schemes = {
+            yellow: {
+                gradientStart: 'var(--yellow-gradient-start)',
+                gradientEnd: 'var(--yellow-gradient-end)',
+                circleBright: 'var(--yellow-circle-bright)',
+                text: 'var(--yellow-text)'
+            },
+            blue: {
+                gradientStart: 'var(--blue-gradient-start)',
+                gradientEnd: 'var(--blue-gradient-end)',
+                circleBright: 'var(--blue-circle-bright)',
+                text: 'var(--blue-text)'
+            },
+            green: {
+                gradientStart: 'var(--green-gradient-start)',
+                gradientEnd: 'var(--green-gradient-end)',
+                circleBright: 'var(--green-circle-bright)',
+                text: 'var(--green-text)'
+            },
+            purple: {
+                gradientStart: 'var(--purple-gradient-start)',
+                gradientEnd: 'var(--purple-gradient-end)',
+                circleBright: 'var(--purple-circle-bright)',
+                text: 'var(--purple-text)'
+            },
+            pink: {
+                gradientStart: 'var(--pink-gradient-start)',
+                gradientEnd: 'var(--pink-gradient-end)',
+                circleBright: 'var(--pink-circle-bright)',
+                text: 'var(--pink-text)'
+            }
+        };
+
+        const selectedScheme = schemes[scheme];
+        const previewArea = document.querySelector('.preview-area');
+
+        // 更新背景渐变
+        previewArea.style.background = `linear-gradient(to bottom, ${selectedScheme.gradientStart}, ${selectedScheme.gradientEnd})`;
+        
+        // 更新圆形装饰的渐变
+        previewArea.style.setProperty('--circle-gradient', `linear-gradient(to bottom, ${selectedScheme.circleBright}, ${selectedScheme.gradientStart}, ${selectedScheme.gradientEnd})`);
+        
+        // 更新文本颜色
+        document.querySelectorAll('.item-text, .item-text-first-line, .title-section').forEach(element => {
+            element.style.color = selectedScheme.text;
+        });
+
+        // 更新序号颜色
+        document.querySelectorAll('.item-number').forEach(number => {
+            number.style.background = selectedScheme.text;
+            number.style.color = selectedScheme.gradientStart;
+        });
     }
 
     updatePreview() {
