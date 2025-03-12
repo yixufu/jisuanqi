@@ -17,6 +17,7 @@
                 </svg>
             </div>
             <h1 class="page-title">图文编辑器</h1>
+            <button id="saveImage" class="save-button">保存图片</button>
         </div>
 
         <div class="editor-container">
@@ -38,6 +39,23 @@
                     <h2 class="section-title">编辑器</h2>
                 </div>
                 
+                <!-- 布局切换区域 -->
+                <div class="editor-block layout-options">
+                    <div class="block-title">布局设置</div>
+                    <div class="input-group">
+                        <div class="layout-radio-group">
+                            <div class="layout-radio-item">
+                                <input type="radio" name="layoutType" id="singleColumn" value="single" checked>
+                                <label for="singleColumn">1 列</label>
+                            </div>
+                            <div class="layout-radio-item">
+                                <input type="radio" name="layoutType" id="doubleColumn" value="double">
+                                <label for="doubleColumn">2 列</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- 色系选择区域 -->
                 <div class="editor-block">
                     <div class="block-title">色系选择</div>
@@ -141,14 +159,6 @@
                     </div>
                 </div>
 
-                <!-- 布局切换区域 -->
-                <div class="editor-block">
-                    <div class="layout-button-container">
-                        <button id="layoutToggle" class="layout-button">切换布局</button>
-                        <div class="button-hint">可切换为 1 列、2 列</div>
-                    </div>
-                </div>
-
                 <!-- 水印设置区域 -->
                 <div class="editor-block">
                     <div class="block-title">水印设置</div>
@@ -163,11 +173,6 @@
                             <input type="range" id="watermarkBottomSlider" min="10" max="50" value="20" step="1">
                         </div>
                     </div>
-                </div>
-
-                <!-- 保存按钮区域 -->
-                <div class="save-button-container">
-                    <button id="saveImage" class="save-button">保存图片</button>
                 </div>
             </div>
         </div>

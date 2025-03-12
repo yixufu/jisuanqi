@@ -375,27 +375,67 @@ button:hover {
     margin-right: auto;
     grid-row: 1;
 }
-.save-button-container {
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid #dee2e6;
+
+/* 页面标题样式优化 */
+.page-header {
+    max-width: 1800px;
+    margin: 0 auto 20px;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
 }
 
+.page-logo {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #367cf5 0%, #1566f3 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(54, 124, 245, 0.2);
+}
+
+.page-logo svg {
+    stroke: white;
+}
+
+.page-title {
+    font-size: 28px;
+    color: #1a1a1a;
+    margin: 0;
+    font-weight: 600;
+}
+
+/* 保存按钮样式 */
 .save-button {
-    width: 100%;
-    padding: 12px 20px;
-    background-color: #28a745;
+    margin-left: auto; /* 将按钮推到右侧 */
+    padding: 10px 20px;
+    background-color: #367cf5; /* 改为蓝色 */
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
-    font-weight: bold;
-    font-size: 16px;
-    transition: background-color 0.2s;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(54, 124, 245, 0.2); /* 调整阴影颜色 */
+    white-space: nowrap;
+    width: auto; /* 让按钮宽度自适应内容 */
+    min-width: 100px; /* 设置最小宽度 */
 }
 
 .save-button:hover {
-    background-color: #218838;
+    background-color: #1566f3; /* 改为更深的蓝色 */
+    box-shadow: 0 4px 12px rgba(54, 124, 245, 0.3); /* 调整阴影颜色 */
+    transform: translateY(-1px);
+}
+
+/* 删除原来的保存按钮容器样式 */
+.save-button-container {
+    display: none;
 }
 
 /* 其他按钮样式 */
@@ -433,35 +473,51 @@ button:not(.save-button) {
     box-shadow: none;
 }
 
-/* 布局切换按钮样式 */
-.layout-button-container {
-    text-align: center;
+/* 布局单选按钮组样式 */
+.layout-radio-group {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
 }
 
-.layout-button,
-#layoutToggle {  /* 添加ID选择器以确保样式生效 */
-    background-color: #367cf5; /* 蓝色背景 */
-    color: #ffffff; /* 白色文字 */
-    padding: 12px 20px;
-    border: none;
+.layout-radio-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.layout-radio-item input[type="radio"] {
+    display: none;
+}
+
+.layout-radio-item label {
+    display: flex;
+    align-items: center;
+    padding: 8px 24px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
     border-radius: 4px;
     cursor: pointer;
-    font-weight: normal; /* 调整字重 */
-    width: 100%;
-    transition: background-color 0.2s;
+    font-size: 14px;
+    color: #495057;
+    transition: all 0.2s ease;
 }
 
-.layout-button:hover,
-#layoutToggle:hover {
-    background-color: #1566f3; /* 悬停时稍深的蓝色 */
+.layout-radio-item label:hover {
+    background-color: #e9ecef;
 }
 
-/* 按钮下方的提示文字样式 */
+.layout-radio-item input[type="radio"]:checked + label {
+    background-color: #367cf5;
+    color: white;
+    border-color: #367cf5;
+}
+
+/* 删除旧的布局按钮样式 */
+.layout-button-container,
+.layout-button,
 .button-hint {
-    font-size: 12px;
-    color: #666;
-    margin-top: 8px;
-    text-align: center;
+    display: none;
 }
 
 /* 字体大小控制器样式优化 */
@@ -543,49 +599,6 @@ button:not(.save-button) {
     min-height: 100vh;
     background-color: #f0f2f5;
     padding: 20px;
-}
-
-/* 页面标题样式优化 */
-.page-header {
-    max-width: 1800px;
-    margin: 0 auto 20px;
-    padding: 15px 0;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-}
-
-.page-logo {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, #367cf5 0%, #1566f3 100%);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 8px rgba(54, 124, 245, 0.2);
-}
-
-.page-logo svg {
-    stroke: white;
-}
-
-.page-title {
-    font-size: 28px;
-    color: #1a1a1a;
-    margin: 0;
-    font-weight: 600;
-}
-
-/* 主容器样式 */
-.editor-container {
-    max-width: 1800px;
-    margin: 0 auto;
-    display: flex;
-    gap: 30px;
-    align-items: flex-start;
 }
 
 /* 区域标题样式统一 */

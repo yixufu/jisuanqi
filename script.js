@@ -2,7 +2,6 @@ class TextEditor {
     constructor() {
         this.contentInput = document.getElementById('contentInput');
         this.previewArea = document.getElementById('previewArea');
-        this.layoutToggle = document.getElementById('layoutToggle');
         this.saveButton = document.getElementById('saveImage');
         this.fontSizeSlider = document.getElementById('fontSizeSlider');
         this.fontSizeValue = document.getElementById('fontSizeValue');
@@ -25,6 +24,7 @@ class TextEditor {
         this.autoNumbering = document.getElementById('autoNumbering');
         this.boldFirstLine = document.getElementById('boldFirstLine');
         this.colorSchemeInputs = document.querySelectorAll('input[name="colorScheme"]');
+        this.layoutInputs = document.querySelectorAll('input[name="layoutType"]');
 
         this.init();
     }
@@ -33,7 +33,6 @@ class TextEditor {
         // 添加所有事件监听器
         this.contentInput.addEventListener('input', () => this.updatePreview());
         this.titleInput.addEventListener('input', () => this.updatePreview());
-        this.layoutToggle.addEventListener('click', () => this.toggleLayout());
         this.saveButton.addEventListener('click', () => this.saveAsImage());
         
         // 字体大小滑块事件
@@ -89,6 +88,14 @@ class TextEditor {
         // 添加配置选项的事件监听
         this.autoNumbering.addEventListener('change', () => this.updatePreview());
         this.boldFirstLine.addEventListener('change', () => this.updatePreview());
+
+        // 添加布局切换事件监听
+        this.layoutInputs.forEach(input => {
+            input.addEventListener('change', (e) => {
+                this.isTwoColumn = e.target.value === 'double';
+                this.updatePreview();
+            });
+        });
 
         this.initColorScheme();
     }
@@ -250,15 +257,6 @@ class TextEditor {
         // 生成连续的序号，每个序号加2，从1开始
         // 例如：1, 2, 3, 4, 5, 6, 7...
         return index + 1;
-    }
-
-    toggleLayout() {
-        this.isTwoColumn = !this.isTwoColumn;
-        const contentSection = this.previewArea.querySelector('.content-section');
-        if (contentSection) {
-            contentSection.classList.toggle('single-column');
-        }
-        this.updatePreview();
     }
 
     async saveAsImage() {
