@@ -1,5 +1,5 @@
 :root {
-    --primary-yellow: #ffdb4d;
+    --primary-yellow: #ffdd00;
     --text-color: #333;
 }
 
@@ -108,16 +108,33 @@ button:hover {
 .preview-area {
     width: 1280px;
     height: 1706px;
-    background: linear-gradient(135deg, #ffdb4d 0%, #ffd700 100%);
+    background: linear-gradient(to bottom, #ffdd00 0%, #ffcc00 100%); /* 垂直线性渐变 */
     box-sizing: border-box;
     position: relative;
     transform-origin: top center;
     margin: 0;
+    overflow: hidden; /* 确保圆形装饰不会溢出 */
 }
 
-/* 内容区域不再需要额外的 z-index */
+/* 添加圆形装饰 */
+.preview-area::before {
+    content: '';
+    position: absolute;
+    width: 1000px;
+    height: 1000px;
+    border-radius: 50%;
+    background: linear-gradient(to bottom, #ffea00 0%, #ffdd00 50%, #ffcc00 100%); /* 上半部分更亮 */
+    top: 50%; /* 垂直居中 */
+    left: 50%;
+    transform: translate(-50%, -50%); /* 水平和垂直居中 */
+    z-index: 0;
+    opacity: 0.4;
+}
+
+/* 确保内容在圆形装饰上方 */
 .title-section, .content-section {
     position: relative;
+    z-index: 1;
 }
 
 .title-section {
@@ -178,7 +195,7 @@ button:hover {
     margin-top: 2px;
     flex-shrink: 0;
     position: relative;
-    color: #ffdb4d; /* 数字颜色保持与背景色匹配 */
+    color: #ffdd00; /* 最终调整的黄色 */
     box-sizing: border-box;
 }
 
