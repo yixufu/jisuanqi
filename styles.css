@@ -1,0 +1,656 @@
+:root {
+    --primary-yellow: #ffdb4d;
+    --text-color: #333;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.editor-container {
+    max-width: 1800px;
+    margin: 0 auto;
+    display: flex;
+    gap: 30px;
+    padding: 20px;
+    align-items: flex-start;
+}
+
+.editor-section,
+.preview-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.editor-section {
+    width: 400px;
+    flex-shrink: 0;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.preview-section {
+    flex: 1;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    padding: 10px 0;
+    border-bottom: 2px solid #e9ecef;
+    margin-bottom: 10px;
+}
+
+.controls {
+    flex: 1;
+}
+
+.input-group {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+textarea {
+    width: 100%;
+    height: 300px;
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: var(--primary-yellow);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.preview-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: visible;
+}
+
+.preview-area {
+    width: 1280px;
+    height: 1706px;
+    background: linear-gradient(135deg, #ffdb4d 0%, #ffd700 100%);
+    box-sizing: border-box;
+    position: relative;
+    transform-origin: top center;
+    margin: 0;
+}
+
+/* 内容区域不再需要额外的 z-index */
+.title-section, .content-section {
+    position: relative;
+}
+
+.title-section {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: var(--title-font-size);
+    font-weight: bold;
+}
+
+.content-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: space-between;
+}
+
+.content-item {
+    width: calc(50% - 15px); /* 两列布局时的宽度 */
+    margin-bottom: 30px;
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+/* 单列布局样式 */
+.single-column .content-item {
+    width: 100%;
+}
+
+.item-text, 
+.item-text-first-line {
+    font-size: var(--content-font-size);
+    color: var(--text-color);
+    flex: 1;
+}
+
+.item-text-first-line {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* 移除底部透明背景块样式 */
+.content-item {
+    background: none;
+}
+
+.item-number {
+    font-size: var(--content-font-size);
+    min-width: 1.8em;
+    height: 1.8em;
+    width: 1.8em;
+    background: #000; /* 黑色圆圈背景 */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+    flex-shrink: 0;
+    position: relative;
+    color: #ffdb4d; /* 数字颜色保持与背景色匹配 */
+    box-sizing: border-box;
+}
+
+.two-column {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    padding: 30px;
+    max-width: 860px;
+    margin: 0 auto;
+    align-items: start;
+    grid-row: 2;
+}
+
+.two-column .content-item {
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.two-column .item-number {
+    margin-top: 2px;
+}
+
+.two-column .item-text {
+    padding-right: 10px;
+}
+
+@media screen and (min-width: 1601px) {
+    .preview-area {
+        transform: scale(0.5);
+    }
+}
+
+@media screen and (max-width: 1600px) {
+    .preview-area {
+        transform: scale(0.45);
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .preview-area {
+        transform: scale(0.4);
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .editor-container {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 15px;
+    }
+
+    .preview-section {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .editor-section {
+        width: auto;
+    }
+
+    .preview-area {
+        transform: scale(0.3);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .preview-area {
+        transform: scale(0.5);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .editor-container {
+        flex-direction: column;
+    }
+
+    .controls {
+        width: 100%;
+    }
+
+    .preview-area {
+        transform: none;
+    }
+}
+
+.font-size-control {
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.font-size-control label {
+    display: block;
+    margin-bottom: 8px;
+    color: #495057;
+}
+
+.font-size-control input[type="range"] {
+    width: 100%;
+    margin: 5px 0;
+}
+
+.app-title {
+    text-align: center;
+    color: #000000;
+    font-size: 56px;
+    margin: 0 0 30px;
+    padding: 15px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    letter-spacing: 2px;
+}
+
+.title-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.preview-title {
+    font-size: var(--title-font-size);
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    grid-row: 1;
+}
+.save-button-container {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #dee2e6;
+}
+
+.save-button {
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.save-button:hover {
+    background-color: #218838;
+}
+
+/* 其他按钮样式 */
+button:not(.save-button) {
+    padding: 10px 15px;
+    background-color: var(--primary-yellow);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.editor-block {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.block-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #666;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.input-group {
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+}
+
+/* 布局切换按钮样式 */
+.layout-button-container {
+    text-align: center;
+}
+
+.layout-button,
+#layoutToggle {  /* 添加ID选择器以确保样式生效 */
+    background-color: #367cf5; /* 蓝色背景 */
+    color: #ffffff; /* 白色文字 */
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: normal; /* 调整字重 */
+    width: 100%;
+    transition: background-color 0.2s;
+}
+
+.layout-button:hover,
+#layoutToggle:hover {
+    background-color: #1566f3; /* 悬停时稍深的蓝色 */
+}
+
+/* 按钮下方的提示文字样式 */
+.button-hint {
+    font-size: 12px;
+    color: #666;
+    margin-top: 8px;
+    text-align: center;
+}
+
+/* 输入框样式优化 */
+.title-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+textarea {
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    resize: vertical;
+    margin-bottom: 15px;
+}
+
+/* 字体大小控制器样式优化 */
+.font-size-control {
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.font-size-control label {
+    display: block;
+    margin-bottom: 8px;
+    color: #495057;
+}
+
+/* 字体选择控件样式 */
+.font-select-control {
+    margin-bottom: 15px;
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 4px;
+}
+
+.font-select-control label {
+    display: block;
+    margin-bottom: 8px;
+    color: #495057;
+}
+
+.font-select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 14px;
+    color: #495057;
+    cursor: pointer;
+}
+
+.font-select:hover {
+    border-color: #adb5bd;
+}
+
+.font-select:focus {
+    border-color: #4a90e2;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+/* 移除可能存在的字体相关样式 */
+.title-section,
+.item-text,
+.item-text-first-line {
+    /* 保留其他样式，但移除 font-family 相关设置 */
+}
+
+/* 水印输入框样式 */
+.watermark-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+/* 水印样式 */
+.watermark-section {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+/* 页面整体样式 */
+.page-container {
+    min-height: 100vh;
+    background-color: #f0f2f5;
+    padding: 20px;
+}
+
+/* 页面标题样式 */
+.page-header {
+    max-width: 1800px;
+    margin: 0 auto 30px;
+    padding: 20px 0;
+}
+
+.page-title {
+    font-size: 28px;
+    color: #1a1a1a;
+    margin: 0;
+    font-weight: 600;
+}
+
+/* 主容器样式 */
+.editor-container {
+    max-width: 1800px;
+    margin: 0 auto;
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+/* 区域标题样式 */
+.section-header {
+    background: #fff;
+    padding: 15px 20px 15px 0;
+    margin: -20px -20px 20px -20px;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.section-title {
+    font-size: 18px;
+    color: #1a1a1a;
+    margin: 0 0 0 20px;
+    font-weight: 500;
+    text-align: left;
+    border-bottom: none;
+}
+
+/* 预览区域样式 */
+.preview-section {
+    flex: 1;
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    min-height: 800px;
+    border-top: none;
+}
+
+/* 编辑器区域样式 */
+.editor-section {
+    width: 400px;
+    flex-shrink: 0;
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* 编辑器块样式优化 */
+.editor-block {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.block-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+    margin-bottom: 15px;
+    border-bottom: none;
+}
+
+/* 控件样式优化 */
+.font-size-control {
+    background: #ffffff;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    border: 1px solid #eee;
+}
+
+/* 输入框样式优化 */
+.title-input,
+.watermark-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    background: #ffffff;
+}
+
+textarea {
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    resize: vertical;
+    margin-bottom: 15px;
+    background: #ffffff;
+}
+
+/* 按钮样式优化 */
+.layout-button {
+    background-color: #ffd75e;
+    color: #333;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s;
+}
+
+.save-button {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+/* 预览容器样式优化 */
+.preview-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: visible;
+    background: #f8f9fa;
+    border-radius: 4px;
+    padding: 20px;
+}
+
+/* 确保预览区域和编辑器区域的标题样式一致 */
+.preview-section .section-header,
+.editor-section .section-header {
+    width: 100%; /* 确保横线拉满整个容器宽度 */
+    box-sizing: border-box;
+}
