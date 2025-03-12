@@ -558,12 +558,15 @@ textarea {
     align-items: flex-start;
 }
 
-/* 区域标题样式 */
+/* 区域标题样式统一 */
 .section-header {
     background: #fff;
-    padding: 12px 15px;
-    margin: -15px -15px 15px -15px;
+    padding: 12px 20px;
+    margin: -20px -20px 15px -20px;
     border-bottom: 1px solid #e8e8e8;
+    text-align: left;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .section-title {
@@ -647,34 +650,19 @@ button {
     padding: 15px;
 }
 
-.section-header {
-    padding: 12px 15px;
+/* 编辑器区域标题样式调整 */
+.editor-section .section-header {
     margin: -15px -15px 15px -15px;
+    padding: 12px 15px;
 }
 
 /* 预览区域标题样式优化 */
 .preview-section .section-header {
-    margin: -20px -20px 15px -20px;
-    padding: 12px 20px;
-    border-bottom: 2px solid #ddd;
-    text-align: left;
-    width: 100%;
-    box-sizing: border-box;
-    display: block;
+    /* 继承通用样式，不需要额外定义 */
 }
 
 .preview-section .section-title {
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-    font-size: 18px;
-    font-weight: 600;
-    color: #1a1a1a;
-}
-
-/* 编辑器区域标题样式 */
-.editor-section .section-header {
-    border-bottom: 1px solid #e8e8e8;
+    /* 继承通用样式，不需要额外定义 */
 }
 
 @media screen and (max-width: 1600px) {
