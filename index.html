@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>小红书图文模板</title>
+    <title>图文编辑器</title>
     <link rel="stylesheet" href="styles.css">
     <style id="dynamicFontStyle"></style>
 </head>
 <body>
     <div class="page-container">
-        <!-- 修改页面标题区域 -->
-        <div class="page-header">
+        <!-- 页面头部 -->
+        <header class="page-header">
             <div class="page-logo">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
@@ -18,8 +18,24 @@
             </div>
             <h1 class="page-title">图文编辑器</h1>
             <button id="saveImage" class="save-button">保存图片</button>
+        </header>
+
+        <!-- 模板选择器 -->
+        <div class="template-selector">
+            <div class="template-options">
+                <div class="template-option">
+                    <input type="radio" name="template" id="template1" value="template1" checked>
+                    <label for="template1">模板一</label>
+                </div>
+                <div class="template-option">
+                    <input type="radio" name="template" id="template2" value="template2">
+                    <label for="template2">模板二</label>
+                </div>
+            </div>
         </div>
 
+        <!-- 模板一内容 -->
+        <div class="template-container" id="template1-container">
         <div class="editor-container">
             <!-- 预览区域 -->
             <div class="preview-section">
@@ -38,76 +54,96 @@
                 <div class="section-header">
                     <h2 class="section-title">编辑器</h2>
                 </div>
+                    
+                    <!-- 布局切换区域 -->
+                    <div class="editor-block layout-options">
+                        <div class="block-title">布局设置</div>
+                        <div class="input-group">
+                            <div class="layout-radio-group">
+                                <div class="layout-radio-item">
+                                    <input type="radio" name="layoutType" id="singleColumn" value="single" checked>
+                                    <label for="singleColumn">1 列</label>
+                                </div>
+                                <div class="layout-radio-item">
+                                    <input type="radio" name="layoutType" id="doubleColumn" value="double">
+                                    <label for="doubleColumn">2 列</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 色系选择区域 -->
+                    <div class="editor-block">
+                        <div class="block-title">色系选择</div>
+                        <div class="input-group">
+                            <div class="color-scheme-options">
+                                <div class="color-scheme-item">
+                                    <input type="radio" name="colorScheme" id="scheme1" value="yellow" checked>
+                                    <label for="scheme1">
+                                        <span class="color-preview yellow-scheme"></span>
+                                        阳光黄
+                                    </label>
+                                </div>
+                                <div class="color-scheme-item">
+                                    <input type="radio" name="colorScheme" id="scheme2" value="blue">
+                                    <label for="scheme2">
+                                        <span class="color-preview blue-scheme"></span>
+                                        海洋蓝
+                                    </label>
+                                </div>
+                                <div class="color-scheme-item">
+                                    <input type="radio" name="colorScheme" id="scheme3" value="green">
+                                    <label for="scheme3">
+                                        <span class="color-preview green-scheme"></span>
+                                        森林绿
+                                    </label>
+                                </div>
+                                <div class="color-scheme-item">
+                                    <input type="radio" name="colorScheme" id="scheme4" value="purple">
+                                    <label for="scheme4">
+                                        <span class="color-preview purple-scheme"></span>
+                                        梦幻紫
+                                    </label>
+                                </div>
+                                <div class="color-scheme-item">
+                                    <input type="radio" name="colorScheme" id="scheme5" value="pink">
+                                    <label for="scheme5">
+                                        <span class="color-preview pink-scheme"></span>
+                                        温柔粉
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                </div>
                 
-                <!-- 布局切换区域 -->
-                <div class="editor-block layout-options">
-                    <div class="block-title">布局设置</div>
-                    <div class="input-group">
-                        <div class="layout-radio-group">
-                            <div class="layout-radio-item">
-                                <input type="radio" name="layoutType" id="singleColumn" value="single" checked>
-                                <label for="singleColumn">1 列</label>
-                            </div>
-                            <div class="layout-radio-item">
-                                <input type="radio" name="layoutType" id="doubleColumn" value="double">
-                                <label for="doubleColumn">2 列</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 色系选择区域 -->
-                <div class="editor-block">
-                    <div class="block-title">色系选择</div>
-                    <div class="input-group">
-                        <div class="color-scheme-options">
-                            <div class="color-scheme-item">
-                                <input type="radio" name="colorScheme" id="scheme1" value="yellow" checked>
-                                <label for="scheme1">
-                                    <span class="color-preview yellow-scheme"></span>
-                                    阳光黄
-                                </label>
-                            </div>
-                            <div class="color-scheme-item">
-                                <input type="radio" name="colorScheme" id="scheme2" value="blue">
-                                <label for="scheme2">
-                                    <span class="color-preview blue-scheme"></span>
-                                    海洋蓝
-                                </label>
-                            </div>
-                            <div class="color-scheme-item">
-                                <input type="radio" name="colorScheme" id="scheme3" value="green">
-                                <label for="scheme3">
-                                    <span class="color-preview green-scheme"></span>
-                                    森林绿
-                                </label>
-                            </div>
-                            <div class="color-scheme-item">
-                                <input type="radio" name="colorScheme" id="scheme4" value="purple">
-                                <label for="scheme4">
-                                    <span class="color-preview purple-scheme"></span>
-                                    梦幻紫
-                                </label>
-                            </div>
-                            <div class="color-scheme-item">
-                                <input type="radio" name="colorScheme" id="scheme5" value="pink">
-                                <label for="scheme5">
-                                    <span class="color-preview pink-scheme"></span>
-                                    温柔粉
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- 标题设置区域 -->
                 <div class="editor-block">
                     <div class="block-title">标题设置</div>
                     <div class="input-group">
-                        <textarea id="titleInput" placeholder="请输入标题" class="title-input" rows="2"></textarea>
+                            <textarea id="titleInput" placeholder="请输入标题" class="title-input" rows="2"></textarea>
                         <div class="font-size-control">
                             <label for="titleFontSizeSlider">字体大小: <span id="titleFontSizeValue">48</span>px</label>
-                            <input type="range" id="titleFontSizeSlider" min="24" max="150" value="48" step="1">
+                                <input type="range" id="titleFontSizeSlider" min="24" max="150" value="48" step="1">
+                            </div>
+                            <div class="color-picker-control">
+                                <label for="titleColorPicker">字体颜色:</label>
+                                <input type="color" id="titleColorPicker" value="#000000">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 副标题设置区域 -->
+                    <div class="editor-block">
+                        <div class="block-title">副标题设置</div>
+                        <div class="input-group">
+                            <textarea id="subtitleInput" placeholder="请输入副标题" class="title-input" rows="2"></textarea>
+                            <div class="font-size-control">
+                                <label for="subtitleFontSizeSlider">字体大小: <span id="subtitleFontSizeValue">32</span>px</label>
+                                <input type="range" id="subtitleFontSizeSlider" min="16" max="96" value="32" step="1">
+                            </div>
+                            <div class="color-picker-control">
+                                <label for="subtitleColorPicker">字体颜色:</label>
+                                <input type="color" id="subtitleColorPicker" value="#000000">
                         </div>
                     </div>
                 </div>
@@ -121,17 +157,21 @@
                             <label for="fontSizeSlider">字体大小: <span id="fontSizeValue">20</span>px</label>
                             <input type="range" id="fontSizeSlider" min="16" max="48" value="20" step="1">
                         </div>
-                        <!-- 添加配置选项 -->
-                        <div class="config-options">
-                            <div class="config-item">
-                                <input type="checkbox" id="autoNumbering" checked>
-                                <label for="autoNumbering">自动添加序号</label>
+                            <div class="color-picker-control">
+                                <label for="contentColorPicker">字体颜色:</label>
+                                <input type="color" id="contentColorPicker" value="#000000">
                             </div>
-                            <div class="config-item">
-                                <input type="checkbox" id="boldFirstLine" checked>
-                                <label for="boldFirstLine">段落首行加粗</label>
+                            <!-- 添加配置选项 -->
+                            <div class="config-options">
+                                <div class="config-item">
+                                    <input type="checkbox" id="autoNumbering" checked>
+                                    <label for="autoNumbering">自动添加序号</label>
+                                </div>
+                                <div class="config-item">
+                                    <input type="checkbox" id="boldFirstLine" checked>
+                                    <label for="boldFirstLine">段落首行加粗</label>
+                                </div>
                             </div>
-                        </div>
                     </div>
                 </div>
 
@@ -171,6 +211,220 @@
                         <div class="font-size-control">
                             <label for="watermarkBottomSlider">水印底部间距: <span id="watermarkBottomValue">20</span>px</label>
                             <input type="range" id="watermarkBottomSlider" min="10" max="50" value="20" step="1">
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 模板二内容 -->
+        <div class="template-container" id="template2-container" style="display: none;">
+            <div class="editor-container">
+                <!-- 预览区域 -->
+                <div class="preview-section template2">
+                    <div class="section-header">
+                        <h2 class="section-title">预览</h2>
+                    </div>
+                    <div class="preview-container">
+                        <div id="previewArea2" class="preview-area template2">
+                            <!-- 预览内容将在这里动态生成 -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 编辑器区域 -->
+                <div class="editor-section template2">
+                    <div class="section-header">
+                        <h2 class="section-title">编辑器</h2>
+                </div>
+
+                    <!-- 色系选择区域 -->
+                    <div class="editor-block">
+                        <div class="block-title">色系选择</div>
+                        <div class="input-group">
+                            <div class="color-scheme-options">
+                                <div class="color-scheme-item">
+                                    <input type="radio" name="bgColorScheme" id="bgColor1" value="#f5e6b3" checked>
+                                    <label for="bgColor1">
+                                        <span class="color-preview" style="background-color: #f5e6b3;"></span>
+                                        默认米色
+                                    </label>
+                                </div>
+                                <div class="color-scheme-item">
+                                    <input type="radio" name="bgColorScheme" id="bgColor2" value="#e3f0ff">
+                                    <label for="bgColor2">
+                                        <span class="color-preview" style="background-color: #e3f0ff;"></span>
+                                        淡雅蓝
+                                    </label>
+                                </div>
+                                <div class="color-scheme-item">
+                                    <input type="radio" name="bgColorScheme" id="bgColor3" value="#f0e5ff">
+                                    <label for="bgColor3">
+                                        <span class="color-preview" style="background-color: #f0e5ff;"></span>
+                                        柔和紫
+                                    </label>
+                                </div>
+                                <div class="color-scheme-item">
+                                    <input type="radio" name="bgColorScheme" id="bgColor4" value="#e5f5e5">
+                                    <label for="bgColor4">
+                                        <span class="color-preview" style="background-color: #e5f5e5;"></span>
+                                        清新绿
+                                    </label>
+                                </div>
+                                <div class="color-scheme-item">
+                                    <input type="radio" name="bgColorScheme" id="bgColor5" value="#ffe5e5">
+                                    <label for="bgColor5">
+                                        <span class="color-preview" style="background-color: #ffe5e5;"></span>
+                                        温柔粉
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 标题设置区域 -->
+                    <div class="editor-block">
+                        <div class="block-title">标题设置</div>
+                        <div class="input-group">
+                            <textarea id="titleInput2" placeholder="请输入标题" class="title-input" rows="2"></textarea>
+                            <div class="font-size-control">
+                                <label for="titleFontSizeSlider2">字体大小: <span id="titleFontSizeValue2">48</span>px</label>
+                                <input type="range" id="titleFontSizeSlider2" min="24" max="150" value="48" step="1">
+                            </div>
+                            <div class="color-picker-control">
+                                <label for="titleColorPicker2">字体颜色:</label>
+                                <input type="color" id="titleColorPicker2" value="#000000">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 副标题设置区域 -->
+                    <div class="editor-block">
+                        <div class="block-title">副标题设置</div>
+                        <div class="input-group">
+                            <textarea id="subtitleInput2" placeholder="请输入副标题" class="title-input" rows="2"></textarea>
+                            <div class="font-size-control">
+                                <label for="subtitleFontSizeSlider2">字体大小: <span id="subtitleFontSizeValue2">32</span>px</label>
+                                <input type="range" id="subtitleFontSizeSlider2" min="16" max="96" value="32" step="1">
+                            </div>
+                            <div class="color-picker-control">
+                                <label for="subtitleColorPicker2">字体颜色:</label>
+                                <input type="color" id="subtitleColorPicker2" value="#000000">
+                            </div>
+                            <div class="config-options">
+                                <div class="config-item">
+                                    <input type="checkbox" id="subtitleBold2">
+                                    <label for="subtitleBold2">加粗显示</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 表格设置区域 -->
+                    <div class="editor-block">
+                        <div class="block-title">表格设置</div>
+                        <div class="input-group">
+                            <div class="table-size-control">
+                                <div class="size-input">
+                                    <label for="tableRows2">行数:</label>
+                                    <input type="number" id="tableRows2" min="1" max="20" value="3">
+                                </div>
+                                <div class="size-input">
+                                    <label for="tableCols2">列数:</label>
+                                    <input type="number" id="tableCols2" min="1" max="10" value="3">
+                                </div>
+                            </div>
+                            <div class="table-style-control">
+                                <div class="font-size-control">
+                                    <label for="cellHeightSlider2">单元格高度: <span id="cellHeightValue2">40</span>px</label>
+                                    <input type="range" id="cellHeightSlider2" min="30" max="100" value="40" step="1">
+                                </div>
+                                <div class="font-size-control">
+                                    <label for="borderWidthSlider2">边框粗细: <span id="borderWidthValue2">1</span>px</label>
+                                    <input type="range" id="borderWidthSlider2" min="1" max="5" value="1" step="1">
+                                </div>
+                                <div class="color-picker-control">
+                                    <label for="borderColorPicker2">边框颜色:</label>
+                                    <input type="color" id="borderColorPicker2" value="#000000">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 表格内容设置区域 -->
+                    <div class="editor-block">
+                        <div class="block-title">表格内容设置</div>
+                        <div class="input-group">
+                            <div class="table-content-control">
+                                <div class="font-size-control">
+                                    <label for="tableFontSizeSlider2">字体大小: <span id="tableFontSizeValue2">14</span>px</label>
+                                    <input type="range" id="tableFontSizeSlider2" min="12" max="80" value="14" step="1">
+                                </div>
+                                <div class="color-picker-control">
+                                    <label for="tableTextColorPicker2">字体颜色:</label>
+                                    <input type="color" id="tableTextColorPicker2" value="#000000">
+                                </div>
+                                <div class="text-align-control">
+                                    <label>文字对齐:</label>
+                                    <div class="align-options">
+                                        <input type="radio" name="textAlign2" id="alignLeft2" value="left" checked>
+                                        <label for="alignLeft2">左对齐</label>
+                                        <input type="radio" name="textAlign2" id="alignCenter2" value="center">
+                                        <label for="alignCenter2">居中</label>
+                                        <input type="radio" name="textAlign2" id="alignRight2" value="right">
+                                        <label for="alignRight2">右对齐</label>
+                                    </div>
+                                </div>
+                                <div class="config-options">
+                                    <div class="config-item">
+                                        <input type="checkbox" id="tableBold2">
+                                        <label for="tableBold2">加粗显示</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tableContainer2" class="table-container">
+                                <!-- 表格将在这里动态生成 -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 间距设置区域 -->
+                    <div class="editor-block">
+                        <div class="block-title">间距设置</div>
+                        <div class="input-group">
+                            <div class="font-size-control">
+                                <label for="pagePaddingSlider2">页边距: <span id="pagePaddingValue2">40</span>px</label>
+                                <input type="range" id="pagePaddingSlider2" min="20" max="80" value="40" step="1">
+                            </div>
+                            <div class="font-size-control">
+                                <label for="titleTopSpacingSlider2">标题顶部间距: <span id="titleTopSpacingValue2">40</span>px</label>
+                                <input type="range" id="titleTopSpacingSlider2" min="20" max="100" value="40" step="1">
+                            </div>
+                            <div class="font-size-control">
+                                <label for="titleSubtitleSpacingSlider2">标题与副标题间距: <span id="titleSubtitleSpacingValue2">30</span>px</label>
+                                <input type="range" id="titleSubtitleSpacingSlider2" min="20" max="80" value="30" step="1">
+                            </div>
+                            <div class="font-size-control">
+                                <label for="subtitleTableSpacingSlider2">副标题与表格间距: <span id="subtitleTableSpacingValue2">40</span>px</label>
+                                <input type="range" id="subtitleTableSpacingSlider2" min="20" max="100" value="40" step="1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 水印设置区域 -->
+                    <div class="editor-block">
+                        <div class="block-title">水印设置</div>
+                        <div class="input-group">
+                            <input type="text" id="watermarkInput2" placeholder="请输入水印内容" class="watermark-input">
+                            <div class="font-size-control">
+                                <label for="watermarkSizeSlider2">水印字体大小: <span id="watermarkSizeValue2">14</span>px</label>
+                                <input type="range" id="watermarkSizeSlider2" min="12" max="24" value="14" step="1">
+                            </div>
+                            <div class="font-size-control">
+                                <label for="watermarkBottomSlider2">水印底部间距: <span id="watermarkBottomValue2">20</span>px</label>
+                                <input type="range" id="watermarkBottomSlider2" min="10" max="50" value="20" step="1">
+                            </div>
                         </div>
                     </div>
                 </div>

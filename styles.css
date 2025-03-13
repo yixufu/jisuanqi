@@ -61,21 +61,15 @@ body {
 
 .preview-section {
     flex: 1;
-    background: #f8f9fa;
+    background: #ffffff;
     border-radius: 8px;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.section-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    padding: 10px 0;
-    border-bottom: 2px solid #e9ecef;
-    margin-bottom: 10px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    min-height: 800px;
+    border-top: none;
 }
 
 .controls {
@@ -83,11 +77,10 @@ body {
 }
 
 .input-group {
-    background: #ffffff;
-    padding: 15px;
-    border-radius: 6px;
-    margin-bottom: 15px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+    margin-bottom: 8px;
 }
 
 textarea {
@@ -97,6 +90,7 @@ textarea {
     border: 1px solid #dee2e6;
     border-radius: 4px;
     resize: vertical;
+    margin-bottom: 10px;
 }
 
 button {
@@ -138,7 +132,7 @@ button:hover {
 }
 
 /* 添加圆形装饰 */
-.preview-area::before {
+.preview-area:not(.template2)::before {
     content: '';
     position: absolute;
     width: 1000px;
@@ -184,6 +178,7 @@ button:hover {
     display: flex;
     gap: 15px;
     align-items: flex-start;
+    background: none; /* 移除底部透明背景块 */
 }
 
 /* 单列布局样式 */
@@ -202,11 +197,6 @@ button:hover {
     font-weight: bold;
     display: block;
     margin-bottom: 8px;
-}
-
-/* 移除底部透明背景块样式 */
-.content-item {
-    background: none;
 }
 
 .item-number {
@@ -266,11 +256,19 @@ button:hover {
     .preview-area {
         transform: scale(0.6);
     }
+    
+    .editor-section {
+        height: calc(1706px * 0.6);
+    }
 }
 
 @media screen and (max-width: 1400px) {
     .preview-area {
         transform: scale(0.5);
+    }
+    
+    .editor-section {
+        height: calc(1706px * 0.5);
     }
 }
 
@@ -301,10 +299,8 @@ button:hover {
 @media screen and (max-width: 768px) {
     .preview-area {
         transform: scale(0.5);
-    }
 }
 
-@media screen and (max-width: 768px) {
     .editor-container {
         flex-direction: column;
     }
@@ -328,7 +324,7 @@ button:hover {
 
 .font-size-control label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     color: #495057;
 }
 
@@ -447,29 +443,6 @@ button:not(.save-button) {
     margin-bottom: 10px;
 }
 
-.editor-block {
-    background: #ffffff;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 20px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.block-title {
-    font-size: 14px;
-    font-weight: bold;
-    color: #666;
-    margin-bottom: 15px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #eee;
-}
-
-.input-group {
-    background: transparent;
-    padding: 0;
-    box-shadow: none;
-}
-
 /* 布局单选按钮组样式 */
 .layout-radio-group {
     display: flex;
@@ -515,19 +488,6 @@ button:not(.save-button) {
 .layout-button,
 .button-hint {
     display: none;
-}
-
-/* 字体大小控制器样式优化 */
-.font-size-control {
-    background: #ffffff;
-    padding: 8px;
-    border-radius: 4px;
-    margin-bottom: 8px;
-    border: 1px solid #eee;
-}
-
-.font-size-control label {
-    margin-bottom: 6px;
 }
 
 /* 字体选择控件样式 */
@@ -621,71 +581,6 @@ button:not(.save-button) {
     padding-left: 0;
 }
 
-/* 预览区域样式 */
-.preview-section {
-    flex: 1;
-    background: #ffffff;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    min-height: 800px;
-    border-top: none;
-}
-
-/* 编辑器块样式优化 */
-.editor-block {
-    background: #f8f9fa;
-    border-radius: 8px;
-    padding: 12px;
-    margin-bottom: 8px;
-}
-
-.block-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 8px;
-    padding-bottom: 6px;
-    border-bottom: 1px solid #eee;
-}
-
-.input-group {
-    background: transparent;
-    padding: 0;
-    box-shadow: none;
-    margin-bottom: 8px;
-}
-
-/* 控件样式优化 */
-.font-size-control {
-    background: #ffffff;
-    padding: 8px;
-    border-radius: 4px;
-    margin-bottom: 8px;
-    border: 1px solid #eee;
-}
-
-.font-size-control label {
-    margin-bottom: 6px;
-}
-
-/* 输入框样式优化 */
-.title-input,
-.watermark-input {
-    padding: 8px;
-    margin-bottom: 10px;
-}
-
-textarea {
-    height: 180px;
-    margin-bottom: 10px;
-}
-
-/* 按钮样式优化 */
-button {
-    margin-bottom: 8px;
-}
-
 /* 编辑器区域间距优化 */
 .editor-section {
     gap: 10px;
@@ -707,29 +602,10 @@ button {
     /* 继承通用样式，不需要额外定义 */
 }
 
-@media screen and (max-width: 1600px) {
-    .editor-section {
-        height: calc(1706px * 0.6);
-    }
-}
-
-@media screen and (max-width: 1400px) {
-    .editor-section {
-        height: calc(1706px * 0.5);
-    }
-}
-
-@media screen and (max-width: 992px) {
-    .editor-section {
-        height: auto;
-        position: static;
-    }
-}
-
 /* 修改标题字号滑块范围 */
 #titleFontSizeSlider {
-    min: 24;
-    max: 96;
+    width: 100%;
+    margin: 5px 0;
 }
 
 /* 配置选项样式 */
@@ -850,4 +726,176 @@ button {
 .item-number {
     background: var(--yellow-text);
     color: var(--yellow-gradient-start);
+}
+
+/* 模板选择器样式 */
+.template-selector {
+    max-width: 1800px;
+    margin: 0 auto 30px;
+    padding: 0 20px;
+}
+
+.template-options {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.template-option {
+    display: flex;
+    align-items: center;
+}
+
+.template-option input[type="radio"] {
+    display: none;
+}
+
+.template-option label {
+    padding: 12px 30px;
+    background-color: #f8f9fa;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #495057;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.template-option label:hover {
+    background-color: #e9ecef;
+}
+
+.template-option input[type="radio"]:checked + label {
+    background-color: #367cf5;
+    color: white;
+    border-color: #367cf5;
+}
+
+/* 模板容器样式 */
+.template-container {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.template-container[style*="display: none"] {
+    opacity: 0;
+}
+
+/* 模板二特有样式 */
+.preview-area.template2 {
+    background: #f5e6b3;
+    border-radius: 0;
+}
+
+.preview-section.template2 {
+    background: #ffffff;
+}
+
+.editor-section.template2 {
+    background: #ffffff;
+}
+
+/* 表格相关样式 */
+.table-size-control {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.size-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #ffffff;
+    padding: 8px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+}
+
+.size-input label {
+    color: #495057;
+    min-width: 40px;
+}
+
+.size-input input[type="number"] {
+    width: 60px;
+    padding: 4px 8px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.table-style-control {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.text-align-control {
+    background: #ffffff;
+    padding: 8px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.align-options {
+    display: flex;
+    gap: 15px;
+    margin-top: 8px;
+}
+
+.align-options input[type="radio"] {
+    display: none;
+}
+
+.align-options label {
+    padding: 6px 12px;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #495057;
+    transition: all 0.2s ease;
+}
+
+.align-options label:hover {
+    background: #e9ecef;
+}
+
+.align-options input[type="radio"]:checked + label {
+    background: #367cf5;
+    color: white;
+    border-color: #367cf5;
+}
+
+.table-container {
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+.template2-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: transparent;
+}
+
+.template2-table td {
+    padding: 8px;
+    min-width: 100px;
+    background: transparent;
+}
+
+.preview-area.template2 .template2-table {
+    border-collapse: collapse;
+    width: calc(100% - 80px);
+    margin: 0 auto;
+    background: transparent;
+}
+
+.preview-area.template2 .template2-table td {
+    background: transparent;
 }
