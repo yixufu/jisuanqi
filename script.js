@@ -86,6 +86,14 @@ class TextEditor {
         this.bgColorSchemeInputs = document.querySelectorAll('input[name="bgColorScheme"]');
         this.textAlignInputs2 = document.querySelectorAll('input[name="textAlign2"]');
 
+        // 添加列宽调节相关元素
+        this.columnWidthSliders = [];
+        this.columnWidthValues = [];
+        
+        // 添加单元格背景色相关元素
+        this.rowBgColorPickers = [];
+        this.colBgColorPickers = [];
+
         this.init();
     }
 
@@ -560,9 +568,12 @@ class TextEditor {
         const rows = parseInt(this.tableRows2.value) || 3;
         const cols = parseInt(this.tableCols2.value) || 3;
         
-        // 获取当前表格内容
+        // 获取当前表格内容和样式
         const currentTable = this.tableContainer2.querySelector('table');
         const existingContent = new Array(rows).fill(null).map(() => new Array(cols).fill(''));
+        const existingWidths = new Array(cols).fill('auto');
+        const existingRowColors = new Array(rows).fill('');
+        const existingColColors = new Array(cols).fill('');
         
         if (currentTable) {
             const currentRows = currentTable.rows;
@@ -570,6 +581,9 @@ class TextEditor {
                 const cells = currentRows[i].cells;
                 for (let j = 0; j < Math.min(cols, cells.length); j++) {
                     existingContent[i][j] = cells[j].textContent || '';
+                    if (i === 0) {
+                        existingWidths[j] = cells[j].style.width || 'auto';
+                    }
                 }
             }
         }
@@ -588,11 +602,155 @@ class TextEditor {
         // 更新表格容器
         this.tableContainer2.innerHTML = tableHtml;
         
+        // 创建列宽控制器
+        this.createColumnWidthControls(cols);
+        
+        // 创建行列背景色控制器
+        this.createBgColorControls(rows, cols);
+        
         // 应用表格样式
         this.applyTableStyles();
         
         // 更新预览
         this.updatePreview2();
+    }
+
+    createColumnWidthControls(cols) {
+        // 清除现有的控制器
+        const widthControlsContainer = document.getElementById('columnWidthControls');
+        if (widthControlsContainer) {
+            widthControlsContainer.innerHTML = '';
+        } else {
+            // 创建新的控制器容器
+            const container = document.createElement('div');
+            container.id = 'columnWidthControls';
+            container.style.marginTop = '20px';
+            container.innerHTML = '<h4>列宽设置</h4>';
+            
+            // 将容器插入到适当的位置
+            const tableSettingsContainer = document.querySelector('.table-settings');
+            if (tableSettingsContainer) {
+                tableSettingsContainer.appendChild(container);
+            }
+        }
+
+        // 创建新的列宽控制器
+        this.columnWidthSliders = [];
+        this.columnWidthValues = [];
+        
+        for (let i = 0; i < cols; i++) {
+            const controlGroup = document.createElement('div');
+            controlGroup.className = 'control-group';
+            controlGroup.style.marginBottom = '10px';
+            
+            const label = document.createElement('label');
+            label.textContent = `第${i + 1}列宽度：`;
+            
+            const slider = document.createElement('input');
+            slider.type = 'range';
+            slider.min = '50';
+            slider.max = '500';
+            slider.value = '100';
+            slider.className = 'column-width-slider';
+            
+            const value = document.createElement('span');
+            value.textContent = '100px';
+            value.className = 'column-width-value';
+            
+            this.columnWidthSliders[i] = slider;
+            this.columnWidthValues[i] = value;
+            
+            slider.addEventListener('input', () => {
+                value.textContent = `${slider.value}px`;
+                this.applyTableStyles();
+            });
+            
+            controlGroup.appendChild(label);
+            controlGroup.appendChild(slider);
+            controlGroup.appendChild(value);
+            widthControlsContainer.appendChild(controlGroup);
+        }
+    }
+
+    createBgColorControls(rows, cols) {
+        // 清除现有的控制器
+        const colorControlsContainer = document.getElementById('cellBgColorControls');
+        if (colorControlsContainer) {
+            colorControlsContainer.innerHTML = '';
+        } else {
+            // 创建新的控制器容器
+            const container = document.createElement('div');
+            container.id = 'cellBgColorControls';
+            container.style.marginTop = '20px';
+            container.innerHTML = '<h4>单元格背景色设置</h4>';
+            
+            // 将容器插入到适当的位置
+            const tableSettingsContainer = document.querySelector('.table-settings');
+            if (tableSettingsContainer) {
+                tableSettingsContainer.appendChild(container);
+            }
+        }
+
+        // 创建行背景色控制器
+        const rowSection = document.createElement('div');
+        rowSection.innerHTML = '<h5>行背景色</h5>';
+        this.rowBgColorPickers = [];
+        
+        for (let i = 0; i < rows; i++) {
+            const controlGroup = document.createElement('div');
+            controlGroup.className = 'control-group';
+            controlGroup.style.marginBottom = '10px';
+            
+            const label = document.createElement('label');
+            label.textContent = `第${i + 1}行：`;
+            
+            const colorPicker = document.createElement('input');
+            colorPicker.type = 'color';
+            colorPicker.value = '#ffffff';
+            colorPicker.className = 'row-bg-color-picker';
+            
+            this.rowBgColorPickers[i] = colorPicker;
+            
+            colorPicker.addEventListener('input', () => {
+                this.applyTableStyles();
+            });
+            
+            controlGroup.appendChild(label);
+            controlGroup.appendChild(colorPicker);
+            rowSection.appendChild(controlGroup);
+        }
+        
+        // 创建列背景色控制器
+        const colSection = document.createElement('div');
+        colSection.innerHTML = '<h5>列背景色</h5>';
+        this.colBgColorPickers = [];
+        
+        for (let i = 0; i < cols; i++) {
+            const controlGroup = document.createElement('div');
+            controlGroup.className = 'control-group';
+            controlGroup.style.marginBottom = '10px';
+            
+            const label = document.createElement('label');
+            label.textContent = `第${i + 1}列：`;
+            
+            const colorPicker = document.createElement('input');
+            colorPicker.type = 'color';
+            colorPicker.value = '#ffffff';
+            colorPicker.className = 'col-bg-color-picker';
+            
+            this.colBgColorPickers[i] = colorPicker;
+            
+            colorPicker.addEventListener('input', () => {
+                this.applyTableStyles();
+            });
+            
+            controlGroup.appendChild(label);
+            controlGroup.appendChild(colorPicker);
+            colSection.appendChild(controlGroup);
+        }
+        
+        colorControlsContainer.appendChild(rowSection);
+        colorControlsContainer.appendChild(colSection);
     }
     
     applyTableStyles() {
@@ -601,7 +759,7 @@ class TextEditor {
         const table = this.tableContainer2.querySelector('table');
         if (!table) return;
         
-        // 获取样式值
+        // 获取基本样式值
         const borderWidth = parseInt(this.borderWidthSlider2.value) || 1;
         const borderColor = this.borderColorPicker2.value || '#000000';
         const fontSize = parseInt(this.tableFontSizeSlider2.value) || 16;
@@ -619,22 +777,50 @@ class TextEditor {
         table.style.fontWeight = fontWeight;
         table.style.border = `${borderWidth}px solid ${borderColor}`;
         
+        // 获取所有行和列
+        const rows = table.rows;
+        
+        // 应用列宽
+        if (this.columnWidthSliders.length > 0) {
+            for (let j = 0; j < this.columnWidthSliders.length; j++) {
+                const width = this.columnWidthSliders[j].value;
+                for (let i = 0; i < rows.length; i++) {
+                    if (rows[i].cells[j]) {
+                        rows[i].cells[j].style.width = `${width}px`;
+                    }
+                }
+            }
+        }
+        
         // 应用单元格样式
-        const cells = table.querySelectorAll('td');
-        cells.forEach(cell => {
-            // 添加输入事件监听
-            cell.addEventListener('input', () => this.updatePreview2());
-            
-            // 应用样式
-            cell.style.height = `${cellHeight}px`;
-            cell.style.textAlign = textAlign;
-            cell.style.padding = '8px';
-            cell.style.boxSizing = 'border-box';
-            cell.style.fontSize = `${fontSize}px`;
-            cell.style.color = textColor;
-            cell.style.fontWeight = fontWeight;
-            cell.style.border = `${borderWidth}px solid ${borderColor}`;
-        });
+        for (let i = 0; i < rows.length; i++) {
+            const cells = rows[i].cells;
+            for (let j = 0; j < cells.length; j++) {
+                const cell = cells[j];
+                
+                // 基本样式
+                cell.style.height = `${cellHeight}px`;
+                cell.style.textAlign = textAlign;
+                cell.style.padding = '8px';
+                cell.style.boxSizing = 'border-box';
+                cell.style.fontSize = `${fontSize}px`;
+                cell.style.color = textColor;
+                cell.style.fontWeight = fontWeight;
+                cell.style.border = `${borderWidth}px solid ${borderColor}`;
+                
+                // 应用背景色（优先使用行背景色）
+                if (this.rowBgColorPickers[i] && this.rowBgColorPickers[i].value !== '#ffffff') {
+                    cell.style.backgroundColor = this.rowBgColorPickers[i].value;
+                } else if (this.colBgColorPickers[j] && this.colBgColorPickers[j].value !== '#ffffff') {
+                    cell.style.backgroundColor = this.colBgColorPickers[j].value;
+                } else {
+                    cell.style.backgroundColor = 'transparent';
+                }
+                
+                // 添加输入事件监听
+                cell.addEventListener('input', () => this.updatePreview2());
+            }
+        }
     }
 
     updatePreview2() {
