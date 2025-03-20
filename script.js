@@ -389,12 +389,13 @@ class TextEditor {
             itemDiv.className = 'content-item';
             itemDiv.style.marginBottom = `${this.paragraphSpacingSlider.value}px`;
             
-            // 根据配置决定是否显示序号
+            // 根据配置决定是否显示序号，并同步字体大小
             if (this.autoNumbering.checked) {
-            const numberDiv = document.createElement('div');
-            numberDiv.className = 'item-number';
-            const number = this.generateOffsetNumber(index);
-            numberDiv.textContent = String(number).padStart(2, '0');
+                const numberDiv = document.createElement('div');
+                numberDiv.className = 'item-number';
+                const number = this.generateOffsetNumber(index);
+                numberDiv.textContent = String(number).padStart(2, '0');
+                numberDiv.style.fontSize = `${this.fontSizeSlider.value}px`; // 添加这行确保序号字体大小同步
                 itemDiv.appendChild(numberDiv);
             }
             
@@ -408,16 +409,18 @@ class TextEditor {
             const firstLine = lines[0];
             const restContent = lines.slice(1).join('\n');
             
-            // 根据配置决定是否加粗首行
+            // 根据配置决定是否加粗首行，同时保持字体大小一致
             if (this.boldFirstLine.checked) {
             const firstLineDiv = document.createElement('div');
             firstLineDiv.className = 'item-text-first-line';
             firstLineDiv.textContent = firstLine;
-                firstLineDiv.style.color = this.contentColorPicker.value;
-                textDiv.appendChild(firstLineDiv);
+            firstLineDiv.style.color = this.contentColorPicker.value;
+            firstLineDiv.style.fontSize = `${this.fontSizeSlider.value}px`; // 添加这行确保首行字体大小一致
+            textDiv.appendChild(firstLineDiv);
             } else {
-                const firstLineDiv = document.createElement('div');
-                firstLineDiv.textContent = firstLine;
+            const firstLineDiv = document.createElement('div');
+            firstLineDiv.textContent = firstLine;
+            firstLineDiv.style.fontSize = `${this.fontSizeSlider.value}px`; // 添加这行确保首行字体大小一致
             textDiv.appendChild(firstLineDiv);
             }
             
