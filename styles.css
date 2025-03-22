@@ -46,6 +46,31 @@ body {
     gap: 15px;
 }
 
+.font-family-control {
+    margin-bottom: 10px;
+}
+
+.font-select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+
+.font-select:hover {
+    border-color: #bbb;
+}
+
+.font-select:focus {
+    outline: none;
+    border-color: var(--primary-yellow);
+    box-shadow: 0 0 0 2px rgba(255, 221, 0, 0.2);
+}
+
 .editor-section {
     width: 400px;
     flex-shrink: 0;
