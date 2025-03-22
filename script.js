@@ -120,6 +120,24 @@ class TextEditor {
         if (this.tableFontSelect2) {
             this.tableFontSelect2.addEventListener('change', () => this.updatePreview2());
         }
+
+        // 添加模板二的背景色系选择事件监听
+        this.bgColorSchemeInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                if (this.previewArea2) {
+                    this.previewArea2.style.backgroundColor = input.value;
+                    this.updatePreview2();
+                }
+            });
+        });
+
+        // 添加文字对齐选项事件监听
+        this.textAlignInputs2.forEach(input => {
+            input.addEventListener('change', () => {
+                this.updateTable2();
+                this.updatePreview2();
+            });
+        });
         
         // 字体大小滑块事件
         this.fontSizeSlider.addEventListener('input', () => {
@@ -241,52 +259,71 @@ class TextEditor {
             this.subtitleBold2.addEventListener('change', () => this.updatePreview2());
             this.subtitleFontSelect2.addEventListener('change', () => this.updatePreview2());
 
+            // 添加表格内容实时更新
+            this.tableContainer2.addEventListener('input', (e) => {
+                if (e.target.tagName === 'TD') {
+                    this.updatePreview2();
+                }
+            });
+
             // 表格结构相关
-            this.tableRows2.addEventListener('change', () => {
-                this.updateTable2();
-                this.updatePreview2();
-            });
-            this.tableCols2.addEventListener('change', () => {
-                this.updateTable2();
-                this.updatePreview2();
-            });
-            this.cellHeightSlider2.addEventListener('input', () => {
-                this.updateTable2();
-                this.updatePreview2();
-            });
-            this.borderWidthSlider2.addEventListener('input', () => {
-                this.updateTable2();
-                this.updatePreview2();
-            });
-            this.borderColorPicker2.addEventListener('input', () => {
-                this.updateTable2();
-                this.updatePreview2();
-            });
-            this.borderOpacitySlider2.addEventListener('input', () => {
-                this.updateTable2();
-                this.updatePreview2();
-            });
+            this.tableRows2.addEventListener('change', () => this.updateTable2());
+            this.tableCols2.addEventListener('change', () => this.updateTable2());
+            this.cellHeightSlider2.addEventListener('input', () => this.updateTable2());
+            this.borderWidthSlider2.addEventListener('input', () => this.updateTable2());
+            this.borderColorPicker2.addEventListener('input', () => this.updateTable2());
+            this.borderOpacitySlider2.addEventListener('input', () => this.updateTable2());
             this.tableFontSizeSlider2.addEventListener('input', () => {
                 this.updateTable2();
                 this.updatePreview2();
             });
-            this.tableTextColorPicker2.addEventListener('input', () => {
-                this.updateTable2();
-                this.updatePreview2();
-            });
-            this.tableBold2.addEventListener('change', () => {
-                this.updateTable2();
-                this.updatePreview2();
-            });
-            this.tableFontSelect2.addEventListener('change', () => {
-                this.updateTable2();
-                this.updatePreview2();
-            });
+            this.tableTextColorPicker2.addEventListener('input', () => this.updateTable2());
+            this.tableBold2.addEventListener('change', () => this.updateTable2());
+            this.tableFontSelect2.addEventListener('change', () => this.updateTable2());
             this.textAlignInputs2.forEach(input => {
-                input.addEventListener('change', () => {
-                    this.updateTable2();
-                    this.updatePreview2();
-                });
+                input.addEventListener('change', () => this.updateTable2());
+            });
+
+            // 添加表格样式实时更新
+            const updateTableStyle = () => {
+                const table = this.tableContainer2.querySelector('table');
+                if (table) {
+                    const cells = table.getElementsByTagName('td');
+                    const fontSize = this.tableFontSizeSlider2.value;
+                    const textColor = this.tableTextColorPicker2.value;
+                    const fontWeight = this.tableBold2.checked ? 'bold' : 'normal';
+                    const textAlign = document.querySelector('input[name="textAlign2"]:checked')?.value || 'center';
+                    const cellHeight = this.cellHeightSlider2.value;
+                    const borderWidth = this.borderWidthSlider2.value;
+                    const borderColor = this.borderColorPicker2.value;
+                    const borderOpacity = this.borderOpacitySlider2.value / 100;
+
+                    table.style.border = `${borderWidth}px solid ${borderColor}`;
+                    table.style.borderCollapse = 'collapse';
+
+                    for (let cell of cells) {
+                        cell.style.height = `${cellHeight}px`;
+                        cell.style.fontSize = `${fontSize}px`;
+                        cell.style.color = textColor;
+                        cell.style.fontWeight = fontWeight;
+                        cell.style.textAlign = textAlign;
+                        cell.style.border = `${borderWidth}px solid ${borderColor}`;
+                        cell.style.padding = '8px';
+                        cell.style.boxSizing = 'border-box';
+                    }
+                }
+            };
+
+            // 监听表格样式变化
+            this.cellHeightSlider2.addEventListener('input', updateTableStyle);
+            this.borderWidthSlider2.addEventListener('input', updateTableStyle);
+            this.borderColorPicker2.addEventListener('input', updateTableStyle);
+            this.borderOpacitySlider2.addEventListener('input', updateTableStyle);
+            this.tableFontSizeSlider2.addEventListener('input', updateTableStyle);
+            this.tableTextColorPicker2.addEventListener('input', updateTableStyle);
+            this.tableBold2.addEventListener('change', updateTableStyle);
+            this.textAlignInputs2.forEach(input => {
+                input.addEventListener('change', updateTableStyle);
             });
 
             // 间距相关
@@ -390,6 +427,12 @@ class TextEditor {
             number.style.background = selectedScheme.text;
             number.style.color = selectedScheme.gradientStart;
         });
+
+        // 更新模板二的背景色
+        if (this.previewArea2) {
+            const selectedBgColor = document.querySelector('input[name="bgColorScheme"]:checked')?.value || '#f8f2d2';
+            this.previewArea2.style.backgroundColor = selectedBgColor;
+        }
     }
 
     updatePreview() {
@@ -443,13 +486,28 @@ class TextEditor {
             itemDiv.className = 'content-item';
             itemDiv.style.marginBottom = `${this.paragraphSpacingSlider.value}px`;
             
-            // 根据配置决定是否显示序号，并同步字体大小
+            // 根据配置决定是否显示序号，并同步字体大小和颜色
             if (this.autoNumbering.checked) {
                 const numberDiv = document.createElement('div');
                 numberDiv.className = 'item-number';
                 const number = this.generateOffsetNumber(index);
                 numberDiv.textContent = String(number).padStart(2, '0');
-                numberDiv.style.fontSize = `${this.fontSizeSlider.value}px`; // 添加这行确保序号字体大小同步
+                numberDiv.style.fontSize = `${this.fontSizeSlider.value}px`;
+                
+                // 获取当前选中的色系
+                const selectedScheme = document.querySelector('input[name="colorScheme"]:checked')?.value || 'yellow';
+                const schemes = {
+                    yellow: { text: 'var(--yellow-text)', bg: 'var(--yellow-gradient-start)' },
+                    blue: { text: 'var(--blue-text)', bg: 'var(--blue-gradient-start)' },
+                    green: { text: 'var(--green-text)', bg: 'var(--green-gradient-start)' },
+                    purple: { text: 'var(--purple-text)', bg: 'var(--purple-gradient-start)' },
+                    pink: { text: 'var(--pink-text)', bg: 'var(--pink-gradient-start)' }
+                };
+                
+                // 应用对应色系的颜色
+                numberDiv.style.background = schemes[selectedScheme].text;
+                numberDiv.style.color = schemes[selectedScheme].bg;
+                
                 itemDiv.appendChild(numberDiv);
             }
             
@@ -647,6 +705,9 @@ class TextEditor {
                 }
             }
         }
+
+        // 实时更新预览
+        this.updatePreview2();
         
         // 获取表格样式
         const fontSize = parseInt(this.tableFontSizeSlider2.value) || 16;
@@ -693,6 +754,9 @@ class TextEditor {
         const cells = this.tableContainer2.querySelectorAll('td');
         cells.forEach(cell => {
             cell.addEventListener('input', () => {
+                // 更新单元格样式
+                const fontSize = parseInt(this.tableFontSizeSlider2.value) || 16;
+                cell.style.fontSize = `${fontSize}px`;
                 this.updatePreview2();
             });
         });
@@ -998,6 +1062,7 @@ class TextEditor {
                 tableContent.style.color = textColor;
                 tableContent.style.fontWeight = fontWeight;
                 tableContent.style.border = `${borderWidth}px solid ${borderColor}`;
+                tableContent.style.textAlign = textAlign;
                 
                 // 应用单元格样式
                 const cells = tableContent.querySelectorAll('td');
@@ -1013,6 +1078,7 @@ class TextEditor {
                     cell.style.fontFamily = this.tableFontSelect2?.value;
                     cell.style.fontWeight = this.tableBold2?.checked ? 'bold' : 'normal';
                     cell.removeAttribute('contenteditable');
+                    cell.style.fontSize = `${this.tableFontSizeSlider2.value}px`;
                 });
 
                 this.previewArea2.appendChild(tableContent);
