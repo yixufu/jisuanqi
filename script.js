@@ -36,6 +36,7 @@ class TextEditor {
         this.watermarkBottomValue = document.getElementById('watermarkBottomValue');
         this.autoNumbering = document.getElementById('autoNumbering');
         this.boldFirstLine = document.getElementById('boldFirstLine');
+        this.numberStartValue = document.getElementById('numberStartValue');
         this.colorSchemeInputs = document.querySelectorAll('input[name="colorScheme"]');
         this.layoutInputs = document.querySelectorAll('input[name="layoutType"]');
         this.templateInputs = document.querySelectorAll('input[name="template"]');
@@ -187,6 +188,9 @@ class TextEditor {
             this.pagePaddingValue.textContent = e.target.value;
             this.updatePreview();
         });
+
+        // 添加序号起始值输入框事件监听
+        this.numberStartValue.addEventListener('input', () => this.updatePreview());
 
         this.titleSpacingSlider.addEventListener('input', (e) => {
             this.titleSpacingValue.textContent = e.target.value;
@@ -567,9 +571,9 @@ class TextEditor {
     }
 
     generateOffsetNumber(index) {
-        // 生成连续的序号，每个序号加2，从1开始
-        // 例如：1, 2, 3, 4, 5, 6, 7...
-        return index + 1;
+        // 生成连续的序号，从用户指定的起始值开始
+        const startValue = parseInt(this.numberStartValue.value) || 1;
+        return startValue + index;
     }
 
     switchTemplate(templateId) {
