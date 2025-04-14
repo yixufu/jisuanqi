@@ -9,9 +9,6 @@ class TextEditor {
         this.titleFontSizeValue = document.getElementById('titleFontSizeValue');
         this.titleInput = document.getElementById('titleInput');
         this.titleColorPicker = document.getElementById('titleColorPicker');
-        this.titleFontSelect = document.getElementById('titleFontSelect');
-        this.subtitleFontSelect = document.getElementById('subtitleFontSelect');
-        this.contentFontSelect = document.getElementById('contentFontSelect');
         
         // 添加副标题相关元素
         this.subtitleInput = document.getElementById('subtitleInput');
@@ -36,7 +33,6 @@ class TextEditor {
         this.watermarkBottomValue = document.getElementById('watermarkBottomValue');
         this.autoNumbering = document.getElementById('autoNumbering');
         this.boldFirstLine = document.getElementById('boldFirstLine');
-        this.numberStartValue = document.getElementById('numberStartValue');
         this.colorSchemeInputs = document.querySelectorAll('input[name="colorScheme"]');
         this.layoutInputs = document.querySelectorAll('input[name="layoutType"]');
         this.templateInputs = document.querySelectorAll('input[name="template"]');
@@ -49,14 +45,12 @@ class TextEditor {
         this.titleFontSizeSlider2 = document.getElementById('titleFontSizeSlider2');
         this.titleFontSizeValue2 = document.getElementById('titleFontSizeValue2');
         this.titleColorPicker2 = document.getElementById('titleColorPicker2');
-        this.titleFontSelect2 = document.getElementById('titleFontSelect2');
         
         this.subtitleInput2 = document.getElementById('subtitleInput2');
         this.subtitleFontSizeSlider2 = document.getElementById('subtitleFontSizeSlider2');
         this.subtitleFontSizeValue2 = document.getElementById('subtitleFontSizeValue2');
         this.subtitleColorPicker2 = document.getElementById('subtitleColorPicker2');
         this.subtitleBold2 = document.getElementById('subtitleBold2');
-        this.subtitleFontSelect2 = document.getElementById('subtitleFontSelect2');
 
         this.tableRows2 = document.getElementById('tableRows2');
         this.tableCols2 = document.getElementById('tableCols2');
@@ -73,7 +67,6 @@ class TextEditor {
         this.tableTextColorPicker2 = document.getElementById('tableTextColorPicker2');
         this.tableBold2 = document.getElementById('tableBold2');
         this.tableContainer2 = document.getElementById('tableContainer2');
-        this.tableFontSelect2 = document.getElementById('tableFontSelect2');
         
         this.pagePaddingSlider2 = document.getElementById('pagePaddingSlider2');
         this.pagePaddingValue2 = document.getElementById('pagePaddingValue2');
@@ -110,35 +103,6 @@ class TextEditor {
         this.titleInput.addEventListener('input', () => this.updatePreview());
         this.subtitleInput.addEventListener('input', () => this.updatePreview());
         this.saveButton.addEventListener('click', () => this.saveAsImage());
-
-        // 添加模板二的字体选择器事件监听
-        if (this.titleFontSelect2) {
-            this.titleFontSelect2.addEventListener('change', () => this.updatePreview2());
-        }
-        if (this.subtitleFontSelect2) {
-            this.subtitleFontSelect2.addEventListener('change', () => this.updatePreview2());
-        }
-        if (this.tableFontSelect2) {
-            this.tableFontSelect2.addEventListener('change', () => this.updatePreview2());
-        }
-
-        // 添加模板二的背景色系选择事件监听
-        this.bgColorSchemeInputs.forEach(input => {
-            input.addEventListener('change', () => {
-                if (this.previewArea2) {
-                    this.previewArea2.style.backgroundColor = input.value;
-                    this.updatePreview2();
-                }
-            });
-        });
-
-        // 添加文字对齐选项事件监听
-        this.textAlignInputs2.forEach(input => {
-            input.addEventListener('change', () => {
-                this.updateTable2();
-                this.updatePreview2();
-            });
-        });
         
         // 字体大小滑块事件
         this.fontSizeSlider.addEventListener('input', () => {
@@ -157,7 +121,7 @@ class TextEditor {
         // 副标题字体大小滑块事件
         this.subtitleFontSizeSlider.addEventListener('input', () => {
             const size = this.subtitleFontSizeSlider.value;
-            this.subtitleFontSizeValue.textContent = size; 
+            this.subtitleFontSizeValue.textContent = size;
             this.updatePreview();
         });
 
@@ -189,9 +153,6 @@ class TextEditor {
             this.updatePreview();
         });
 
-        // 添加序号起始值输入框事件监听
-        this.numberStartValue.addEventListener('input', () => this.updatePreview());
-
         this.titleSpacingSlider.addEventListener('input', (e) => {
             this.titleSpacingValue.textContent = e.target.value;
             this.updatePreview();
@@ -206,11 +167,6 @@ class TextEditor {
             this.watermarkBottomValue.textContent = e.target.value;
             this.updatePreview();
         });
-
-        // 添加字体选择器事件监听
-        this.titleFontSelect.addEventListener('change', () => this.updatePreview());
-        this.subtitleFontSelect.addEventListener('change', () => this.updatePreview());
-        this.contentFontSelect.addEventListener('change', () => this.updatePreview());
 
         // 添加配置选项的事件监听
         this.autoNumbering.addEventListener('change', () => this.updatePreview());
@@ -249,9 +205,6 @@ class TextEditor {
                 this.updatePreview2();
             });
             this.titleColorPicker2.addEventListener('input', () => this.updatePreview2());
-            this.titleFontSelect2.addEventListener('change', () => this.updatePreview2());
-            this.subtitleFontSelect2.addEventListener('change', () => this.updatePreview2());
-            this.tableFontSelect2.addEventListener('change', () => this.updatePreview2());
 
             // 副标题相关
             this.subtitleInput2.addEventListener('input', () => this.updatePreview2());
@@ -261,73 +214,30 @@ class TextEditor {
             });
             this.subtitleColorPicker2.addEventListener('input', () => this.updatePreview2());
             this.subtitleBold2.addEventListener('change', () => this.updatePreview2());
-            this.subtitleFontSelect2.addEventListener('change', () => this.updatePreview2());
-
-            // 添加表格内容实时更新
-            this.tableContainer2.addEventListener('input', (e) => {
-                if (e.target.tagName === 'TD') {
-                    this.updatePreview2();
-                }
-            });
 
             // 表格结构相关
             this.tableRows2.addEventListener('change', () => this.updateTable2());
             this.tableCols2.addEventListener('change', () => this.updateTable2());
-            this.cellHeightSlider2.addEventListener('input', () => this.updateTable2());
-            this.borderWidthSlider2.addEventListener('input', () => this.updateTable2());
-            this.borderColorPicker2.addEventListener('input', () => this.updateTable2());
-            this.borderOpacitySlider2.addEventListener('input', () => this.updateTable2());
-            this.tableFontSizeSlider2.addEventListener('input', () => {
+            
+            // 表格样式相关
+            this.cellHeightSlider2.addEventListener('input', () => {
+                this.cellHeightValue2.textContent = this.cellHeightSlider2.value;
                 this.updateTable2();
-                this.updatePreview2();
+            });
+            this.borderWidthSlider2.addEventListener('input', () => {
+                this.borderWidthValue2.textContent = this.borderWidthSlider2.value;
+                this.updateTable2();
+            });
+            this.borderColorPicker2.addEventListener('input', () => this.updateTable2());
+            
+            this.tableFontSizeSlider2.addEventListener('input', () => {
+                this.tableFontSizeValue2.textContent = this.tableFontSizeSlider2.value;
+                this.updateTable2();
             });
             this.tableTextColorPicker2.addEventListener('input', () => this.updateTable2());
             this.tableBold2.addEventListener('change', () => this.updateTable2());
-            this.tableFontSelect2.addEventListener('change', () => this.updateTable2());
             this.textAlignInputs2.forEach(input => {
                 input.addEventListener('change', () => this.updateTable2());
-            });
-
-            // 添加表格样式实时更新
-            const updateTableStyle = () => {
-                const table = this.tableContainer2.querySelector('table');
-                if (table) {
-                    const cells = table.getElementsByTagName('td');
-                    const fontSize = this.tableFontSizeSlider2.value;
-                    const textColor = this.tableTextColorPicker2.value;
-                    const fontWeight = this.tableBold2.checked ? 'bold' : 'normal';
-                    const textAlign = document.querySelector('input[name="textAlign2"]:checked')?.value || 'center';
-                    const cellHeight = this.cellHeightSlider2.value;
-                    const borderWidth = this.borderWidthSlider2.value;
-                    const borderColor = this.borderColorPicker2.value;
-                    const borderOpacity = this.borderOpacitySlider2.value / 100;
-
-                    table.style.border = `${borderWidth}px solid ${borderColor}`;
-                    table.style.borderCollapse = 'collapse';
-
-                    for (let cell of cells) {
-                        cell.style.height = `${cellHeight}px`;
-                        cell.style.fontSize = `${fontSize}px`;
-                        cell.style.color = textColor;
-                        cell.style.fontWeight = fontWeight;
-                        cell.style.textAlign = textAlign;
-                        cell.style.border = `${borderWidth}px solid ${borderColor}`;
-                        cell.style.padding = '8px';
-                        cell.style.boxSizing = 'border-box';
-                    }
-                }
-            };
-
-            // 监听表格样式变化
-            this.cellHeightSlider2.addEventListener('input', updateTableStyle);
-            this.borderWidthSlider2.addEventListener('input', updateTableStyle);
-            this.borderColorPicker2.addEventListener('input', updateTableStyle);
-            this.borderOpacitySlider2.addEventListener('input', updateTableStyle);
-            this.tableFontSizeSlider2.addEventListener('input', updateTableStyle);
-            this.tableTextColorPicker2.addEventListener('input', updateTableStyle);
-            this.tableBold2.addEventListener('change', updateTableStyle);
-            this.textAlignInputs2.forEach(input => {
-                input.addEventListener('change', updateTableStyle);
             });
 
             // 间距相关
@@ -431,12 +341,6 @@ class TextEditor {
             number.style.background = selectedScheme.text;
             number.style.color = selectedScheme.gradientStart;
         });
-
-        // 更新模板二的背景色
-        if (this.previewArea2) {
-            const selectedBgColor = document.querySelector('input[name="bgColorScheme"]:checked')?.value || '#f8f2d2';
-            this.previewArea2.style.backgroundColor = selectedBgColor;
-        }
     }
 
     updatePreview() {
@@ -444,9 +348,6 @@ class TextEditor {
         const title = this.titleInput.value.replace(/\n/g, '<br>');
         const subtitle = this.subtitleInput.value.replace(/\n/g, '<br>');
         const paragraphs = content.split(/\n\s*\n/).filter(para => para.trim());
-        const titleFont = this.titleFontSelect.value;
-        const subtitleFont = this.subtitleFontSelect.value;
-        const contentFont = this.contentFontSelect.value;
         
         // 更新预览区域样式
         this.previewArea.style.padding = `${this.pagePaddingSlider.value}px`;
@@ -461,7 +362,6 @@ class TextEditor {
             titleSection.style.fontSize = `${this.titleFontSizeSlider.value}px`;
             titleSection.style.marginBottom = `${this.titleSpacingSlider.value}px`;
             titleSection.style.color = this.titleColorPicker.value;
-            titleSection.style.fontFamily = titleFont;
             this.previewArea.appendChild(titleSection);
         }
 
@@ -474,7 +374,6 @@ class TextEditor {
             subtitleSection.style.marginBottom = `${this.titleSpacingSlider.value}px`;
             subtitleSection.style.color = this.subtitleColorPicker.value;
             subtitleSection.style.textAlign = 'center';
-            subtitleSection.style.fontFamily = subtitleFont;
             this.previewArea.appendChild(subtitleSection);
         }
         
@@ -490,28 +389,13 @@ class TextEditor {
             itemDiv.className = 'content-item';
             itemDiv.style.marginBottom = `${this.paragraphSpacingSlider.value}px`;
             
-            // 根据配置决定是否显示序号，并同步字体大小和颜色
+            // 根据配置决定是否显示序号，并同步字体大小
             if (this.autoNumbering.checked) {
                 const numberDiv = document.createElement('div');
                 numberDiv.className = 'item-number';
                 const number = this.generateOffsetNumber(index);
                 numberDiv.textContent = String(number).padStart(2, '0');
-                numberDiv.style.fontSize = `${this.fontSizeSlider.value}px`;
-                
-                // 获取当前选中的色系
-                const selectedScheme = document.querySelector('input[name="colorScheme"]:checked')?.value || 'yellow';
-                const schemes = {
-                    yellow: { text: 'var(--yellow-text)', bg: 'var(--yellow-gradient-start)' },
-                    blue: { text: 'var(--blue-text)', bg: 'var(--blue-gradient-start)' },
-                    green: { text: 'var(--green-text)', bg: 'var(--green-gradient-start)' },
-                    purple: { text: 'var(--purple-text)', bg: 'var(--purple-gradient-start)' },
-                    pink: { text: 'var(--pink-text)', bg: 'var(--pink-gradient-start)' }
-                };
-                
-                // 应用对应色系的颜色
-                numberDiv.style.background = schemes[selectedScheme].text;
-                numberDiv.style.color = schemes[selectedScheme].bg;
-                
+                numberDiv.style.fontSize = `${this.fontSizeSlider.value}px`; // 添加这行确保序号字体大小同步
                 itemDiv.appendChild(numberDiv);
             }
             
@@ -519,7 +403,6 @@ class TextEditor {
             textDiv.className = 'item-text';
             textDiv.style.color = this.contentColorPicker.value;
             textDiv.style.fontSize = `${this.fontSizeSlider.value}px`;
-            textDiv.style.fontFamily = contentFont;
             
             // 分割段落的第一行和剩余内容
             const lines = paragraph.split('\n');
@@ -571,9 +454,9 @@ class TextEditor {
     }
 
     generateOffsetNumber(index) {
-        // 生成连续的序号，从用户指定的起始值开始
-        const startValue = parseInt(this.numberStartValue.value) || 1;
-        return startValue + index;
+        // 生成连续的序号，每个序号加2，从1开始
+        // 例如：1, 2, 3, 4, 5, 6, 7...
+        return index + 1;
     }
 
     switchTemplate(templateId) {
@@ -648,8 +531,6 @@ class TextEditor {
                         cell.style.color = textColor;
                         cell.style.fontWeight = fontWeight;
                         cell.style.border = `${borderWidth}px solid ${borderColor}`;
-                    cell.style.fontFamily = this.tableFontSelect2?.value || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
-                    cell.style.fontWeight = this.tableBold2?.checked ? 'bold' : 'normal';
                     }
                 }
             }
@@ -709,34 +590,13 @@ class TextEditor {
                 }
             }
         }
-
-        // 实时更新预览
-        this.updatePreview2();
         
-        // 获取表格样式
-        const fontSize = parseInt(this.tableFontSizeSlider2.value) || 16;
-        const textColor = this.tableTextColorPicker2.value || '#000000';
-        const fontWeight = this.tableBold2 && this.tableBold2.checked ? 'bold' : 'normal';
-        const textAlign = document.querySelector('input[name="textAlign2"]:checked')?.value || 'center';
-        const borderWidth = parseInt(this.borderWidthSlider2.value) || 1;
-        const borderColor = this.borderColorPicker2.value || '#000000';
-        const cellHeight = parseInt(this.cellHeightSlider2.value) || 40;
-
         // 创建表格HTML
-        let tableHtml = '<table class="template2-table" style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">';
+        let tableHtml = '<table class="template2-table">';
         for (let i = 0; i < rows; i++) {
             tableHtml += '<tr>';
             for (let j = 0; j < cols; j++) {
-                tableHtml += `<td contenteditable="true" style="
-                    border: ${borderWidth}px solid ${borderColor};
-                    padding: 8px;
-                    height: ${cellHeight}px;
-                    min-height: 40px;
-                    text-align: ${textAlign};
-                    font-size: ${fontSize}px;
-                    color: ${textColor};
-                    font-weight: ${fontWeight};
-                    font-family: ${this.tableFontSelect2?.value || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'};">${existingContent[i][j]}</td>`;
+                tableHtml += `<td contenteditable="true">${existingContent[i][j]}</td>`;
             }
             tableHtml += '</tr>';
         }
@@ -753,17 +613,6 @@ class TextEditor {
         
         // 应用表格样式
         this.applyTableStyles();
-        
-        // 为每个单元格添加内容变更事件监听
-        const cells = this.tableContainer2.querySelectorAll('td');
-        cells.forEach(cell => {
-            cell.addEventListener('input', () => {
-                // 更新单元格样式
-                const fontSize = parseInt(this.tableFontSizeSlider2.value) || 16;
-                cell.style.fontSize = `${fontSize}px`;
-                this.updatePreview2();
-            });
-        });
         
         // 更新预览
         this.updatePreview2();
@@ -930,8 +779,6 @@ class TextEditor {
         table.style.color = textColor;
         table.style.fontWeight = fontWeight;
         table.style.border = `${borderWidth}px solid ${borderColor}`;
-        table.style.fontFamily = this.tableFontSelect2.value;
-        table.style.marginBottom = '20px';
         
         // 获取所有行和列
         const rows = table.rows;
@@ -963,9 +810,6 @@ class TextEditor {
                 cell.style.color = textColor;
                 cell.style.fontWeight = fontWeight;
                 cell.style.border = `${borderWidth}px solid ${borderColor}`;
-                cell.style.verticalAlign = 'middle';
-                cell.style.minHeight = '40px';
-                cell.style.fontFamily = this.tableFontSelect2?.value || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
                 
                 // 应用背景色（优先使用行背景色）
                 if (this.rowBgColorPickers[i] && this.rowBgColorPickers[i].value !== '#ffffff') {
@@ -1015,8 +859,6 @@ class TextEditor {
             titleSection.style.marginTop = `${titleTopSpacing}px`;
             titleSection.style.marginBottom = `${titleSubtitleSpacing}px`;
             titleSection.style.textAlign = 'center';
-            titleSection.style.fontFamily = this.titleFontSelect2?.value || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
-            titleSection.style.fontWeight = 'bold';
             
             this.previewArea2.appendChild(titleSection);
         }
@@ -1040,7 +882,6 @@ class TextEditor {
             subtitleSection.style.fontWeight = subtitleFontWeight;
             subtitleSection.style.marginBottom = `${subtitleTableSpacing}px`;
             subtitleSection.style.textAlign = 'center';
-            subtitleSection.style.fontFamily = this.subtitleFontSelect2?.value || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
             
             this.previewArea2.appendChild(subtitleSection);
         }
@@ -1066,7 +907,6 @@ class TextEditor {
                 tableContent.style.color = textColor;
                 tableContent.style.fontWeight = fontWeight;
                 tableContent.style.border = `${borderWidth}px solid ${borderColor}`;
-                tableContent.style.textAlign = textAlign;
                 
                 // 应用单元格样式
                 const cells = tableContent.querySelectorAll('td');
@@ -1079,10 +919,7 @@ class TextEditor {
                     cell.style.color = textColor;
                     cell.style.fontWeight = fontWeight;
                     cell.style.border = `${borderWidth}px solid ${borderColor}`;
-                    cell.style.fontFamily = this.tableFontSelect2?.value;
-                    cell.style.fontWeight = this.tableBold2?.checked ? 'bold' : 'normal';
                     cell.removeAttribute('contenteditable');
-                    cell.style.fontSize = `${this.tableFontSizeSlider2.value}px`;
                 });
 
                 this.previewArea2.appendChild(tableContent);
