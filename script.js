@@ -33,6 +33,7 @@ class TextEditor {
         this.watermarkBottomValue = document.getElementById('watermarkBottomValue');
         this.autoNumbering = document.getElementById('autoNumbering');
         this.boldFirstLine = document.getElementById('boldFirstLine');
+        this.startNumberInput = document.getElementById('startNumberInput');
         this.colorSchemeInputs = document.querySelectorAll('input[name="colorScheme"]');
         this.layoutInputs = document.querySelectorAll('input[name="layoutType"]');
         this.templateInputs = document.querySelectorAll('input[name="template"]');
@@ -171,6 +172,7 @@ class TextEditor {
         // 添加配置选项的事件监听
         this.autoNumbering.addEventListener('change', () => this.updatePreview());
         this.boldFirstLine.addEventListener('change', () => this.updatePreview());
+        this.startNumberInput.addEventListener('input', () => this.updatePreview());
 
         // 添加布局切换事件监听
         this.layoutInputs.forEach(input => {
@@ -393,7 +395,7 @@ class TextEditor {
             if (this.autoNumbering.checked) {
                 const numberDiv = document.createElement('div');
                 numberDiv.className = 'item-number';
-                const number = this.generateOffsetNumber(index);
+                const number = parseInt(this.startNumberInput.value) + index;
                 numberDiv.textContent = String(number).padStart(2, '0');
                 numberDiv.style.fontSize = `${this.fontSizeSlider.value}px`; // 添加这行确保序号字体大小同步
                 itemDiv.appendChild(numberDiv);
